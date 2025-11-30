@@ -1,804 +1,379 @@
-# Weapons service script
-# Sergey "Mercenary_Mercury" Salow, Aug 2011
+print("LOADING weapons.nas pew pew! fox 3 fox3!.");
+################################################################################
+#
+#                        F-22 WEAPONS SETTINGS
+#							Thanks to the m2005-5's developpers
+#                          and Special thanks to Developer0607! (Ghost)
+################################################################################
 
-#weapons messaging
-var mp_messaging = func {
-   if(getprop("fdm/jsbsim/gear/unit[0]/WOW")) {
-      setprop("payload/armament/msg", !getprop("payload/armament/msg"));
-   }
-   else {
-      screen.log.write("Cannot toggle MP damage while in the air!");
-   }
+var dt = 0;
+var isFiring = 0;
+var splashdt = 0;
+var MPMessaging = props.globals.getNode("/payload/armament/msg", 1);
+# Trigger
+fire_MG = func() {  # b would be in the ()
+
+    var time = getprop("/sim/time/elapsed-sec");
+    if(getprop("/sim/failure-manager/systems/wcs/failure-level"))return;
+    if (getprop("controls/armament/trigger") == 0){return;} #hmmm
+    if(getprop("/controls/armament/stick-selector") == 1)
+    {
+        if (getprop("controls/armament/master-arm") == 1) {
+        isFiring = 1;
+        
+        setprop("/controls/armament/gun-trigger", 1);
+        screen.log.write("Trigger!");
+        settimer(autostopFiring, 0.47); # Fast burst
+        } else {
+            screen.log.write("Master arm is not armed");
+        }
+
+        #
+    }
+    if(getprop("/controls/armament/stick-selector") == 2)
+    {
+     #   if(b == 1)
+     #   {
+            if (getprop("controls/armament/master-arm") == 1) {
+            # var time = getprop("/sim/time/elapsed-sec");
+            if(time - dt > 1) # Adjust this 0 for limit on how many missiles you can shoot at once speed limit
+            {
+                    var missile = getprop("controls/missile");
+    setprop("controls/missile", !missile);
+                dt = time;
+                m2000_load. SelectNextPylon();
+               f22.fire(0,0); # Open the bay doors of the currently selected weapon
+                var pylon = getprop("/controls/armament/missile/current-pylon");
+                m2000_load.dropLoad(pylon);
+                screen.log.write("Trigger!");
+                print("Should fire Missile");
+                setprop("/controls/armament/missile-trigger", 1);
+
+
+
+            }
+        } else {
+            screen.log.write("Master arm is not armed");
+        }
+    }
+}
+# Pickle
+fire_MG_pic = func() {  # b would be in the ()
+
+    var time = getprop("/sim/time/elapsed-sec");
+    if(getprop("/sim/failure-manager/systems/wcs/failure-level"))return;
+    if (getprop("controls/armament/pickle") == 0){return;} #hmmm
+        if (getprop("controls/armament/master-arm") == 1) {
+        # var time = getprop("/sim/time/elapsed-sec");
+        if(time - dt > 1) # Adjust this 0 for limit on how many missiles you can shoot at once speed limit
+            {
+            var missile = getprop("controls/missile");
+            setprop("controls/missile", !missile);
+            dt = time;
+            m2000_load.SelectNextPylon();
+            screen.log.write("Pickle!");
+            f22.fire(0,0); # Open the bay doors of the currently selected weapon
+            var pylon = getprop("/controls/armament/missile/current-pylon");
+            m2000_load.dropLoad(pylon);
+            print("Should fire Missile");
+            setprop("/controls/armament/missile-trigger", 1);
+            }
+    } else {
+        screen.log.write("Master arm is not armed");
+    }
 }
 
-################Cannon impact messaging###########################
+
+
+var autostopFiring = func() {
+    setprop("/controls/armament/missile-trigger", 0);
+    setprop("/controls/armament/gun-trigger", 0);
+    isFiring = 0;
+}
+
+
+var stopFiring = func() {
+    if (getprop("controls/armament/trigger") == 0) {
+
+        setprop("/controls/armament/missile-trigger", 0);
+    setprop("/controls/armament/gun-trigger", 0);
+    isFiring = 0;
+    }
+}
+
+gun_timer = maketimer(0.01, stopFiring);
+gun_timer.start();
+
+reload = func() {
+    setprop("/ai/submodels/submodel/count",    480);
+    setprop("/ai/submodels/submodel[1]/count", 480);
+    setprop("/ai/submodels/submodel[2]/count", 480);
+    setprop("/ai/submodels/submodel[3]/count", 480);
+    setprop("/ai/submodels/submodel[4]/count", 480);
+    setprop("/ai/submodels/submodel[5]/count", 480);
+    setprop("/ai/submodels/submodel[6]/count", 480);
+    setprop("/ai/submodels/submodel[7]/count", 480);
+    setprop("/f22/flare",200);
+    setprop("/f22/chaff",200);
+    screen.log.write("Reloaded guns and countermessures! Repaired damage aswell.");
+}
+
+
+input = {
+  elapsed:          "/sim/time/elapsed-sec",
+  impact:           "/ai/models/model-impact",
+};
+
+foreach(var name; keys(input)) {
+      input[name] = props.globals.getNode(input[name], 1);
+}
+
+var last_impact = 0;
+
+var hit_count = 0;
+
+#gun hits
 
 var hits_count = 0;
-var hit_timer = nil;
+var hit_timer  = nil;
 var hit_callsign = "";
 
 var Mp = props.globals.getNode("ai/models");
 var valid_mp_types = {
-  multiplayer: 1, tanker: 1, aircraft: 1, ship: 1, groundvehicle: 1,
+    multiplayer: 1, tanker: 1, aircraft: 1, ship: 1, groundvehicle: 1,
 };
 
 # Find a MP aircraft close to a given point (code from the Mirage 2000)
 var findmultiplayer = func(targetCoord, dist) {
-  if(targetCoord == nil) return nil;
+    if(targetCoord == nil) return nil;
 
-  var raw_list = Mp.getChildren();
-  var SelectedMP = nil;
-  foreach(var c ; raw_list)
-  {    
-    var is_valid = c.getNode("valid");
-    if(is_valid == nil or !is_valid.getBoolValue()) continue;
-    
-    var type = c.getName();
-    
-    var position = c.getNode("position");
-    var name = c.getValue("callsign");
-    if(name == nil or name == "") {
-      # fallback, for some AI objects
-      var name = c.getValue("name");
+    var raw_list = Mp.getChildren();
+    var SelectedMP = nil;
+    foreach(var c ; raw_list)
+    {
+        var is_valid = c.getNode("valid");
+        if(is_valid == nil or !is_valid.getBoolValue()) continue;
+
+        var type = c.getName();
+
+        var position = c.getNode("position");
+        var name = c.getValue("callsign");
+        if(name == nil or name == "") {
+            # fallback, for some AI objects
+            var name = c.getValue("name");
+        }
+        if(position == nil or name == nil or name == "" or !contains(valid_mp_types, type)) continue;
+
+        var lat = position.getValue("latitude-deg");
+        var lon = position.getValue("longitude-deg");
+        var elev = position.getValue("altitude-ft") * FT2M;
+
+        if(lat == nil or lon == nil or elev == nil) continue;
+
+        MpCoord = geo.Coord.new().set_latlon(lat, lon, elev);
+        var tempoDist = MpCoord.direct_distance_to(targetCoord);
+        if(dist > tempoDist) {
+            dist = tempoDist;
+            SelectedMP = name;
+        }
     }
-    if(position == nil or name == nil or name == "" or !contains(valid_mp_types, type)) continue;
-
-    var lat = position.getValue("latitude-deg");
-    var lon = position.getValue("longitude-deg");
-    var elev = position.getValue("altitude-m");
-    if(elev == nil) elev = position.getValue("altitude-ft") * FT2M;
-
-    if(lat == nil or lon == nil or elev == nil) continue;
-
-    MpCoord = geo.Coord.new().set_latlon(lat, lon, elev);
-    var tempoDist = MpCoord.direct_distance_to(targetCoord);
-    if(dist > tempoDist) {
-      dist = tempoDist;
-      SelectedMP = name;
-    }
-  }
-  return SelectedMP;
+    return SelectedMP;
 }
 
 var impact_listener = func {
-   var ballistic_name = props.globals.getNode("/ai/models/model-impact").getValue();
-   var ballistic = props.globals.getNode(ballistic_name, 0);
-   if(ballistic != nil) {
-      var typeNode = ballistic.getNode("impact/type");
-      if(typeNode != nil and typeNode.getValue() != "terrain") {
-         var lat = ballistic.getNode("impact/latitude-deg").getValue();
-         var lon = ballistic.getNode("impact/longitude-deg").getValue();
-         var alt = ballistic.getNode("impact/elevation-m").getValue();
-         var impactPos = geo.Coord.new().set_latlon(lat, lon, alt);
-         var target = findmultiplayer(impactPos, 80);
+    var ballistic_name = props.globals.getNode("/ai/models/model-impact").getValue();
+    var ballistic = props.globals.getNode(ballistic_name, 0);
+    if (ballistic != nil and ballistic.getName() != "munition") {
+        var typeNode = ballistic.getNode("impact/type");
+        if (typeNode != nil and typeNode.getValue() != "terrain") {
+            var lat = ballistic.getNode("impact/latitude-deg").getValue();
+            var lon = ballistic.getNode("impact/longitude-deg").getValue();
+            var elev = ballistic.getNode("impact/elevation-m").getValue();
+            var impactPos = geo.Coord.new().set_latlon(lat, lon, elev);
+            var target = findmultiplayer(impactPos, 80);
 
-         if(target != nil) {
-            var typeOrd = "GSh-30"; #please remember to change
-
-            if(target == hit_callsign) {
-               # Previous impacts on same target
-               hits_count += 1;
+            if (target != nil) {
+                var typeOrd = ballistic.getNode("name").getValue();
+                if(target == hit_callsign) {
+                    # Previous impacts on same target
+                    hits_count += 1;
+                }
+                else {
+                    if (hit_timer != nil) {
+                        # Previous impacts on different target, flush them first
+                        hit_timer.stop();
+                        hitmessage(typeOrd);
+                    }
+                    hits_count = 1;
+                    hit_callsign = target;
+                    hit_timer = maketimer(1, func {hitmessage(typeOrd,hit_callsign,hits_count);});
+                    hit_timer.singleShot = 1;
+                    hit_timer.start();
+                }
             }
-            else {
-               if(hit_timer != nil) {
-                  # Previous impacts on different target, flush them first
-                  hit_timer.stop();
-                  hitmessage(typeOrd);
-               }
-               hits_count = 1;
-               hit_callsign = target;
-               hit_timer = maketimer(1, func{
-                  hitmessage(typeOrd);
-               });
-               hit_timer.singleShot = 1;
-               hit_timer.start();
-            }
-         }
-      }
-   }
+        }
+    }
 }
 
+var hitmessage = func(typeOrd,callsign,hits) {
+    #print("inside hitmessage");
+    var phrase = "M61A1 shell" ~ " hit: " ~ callsign ~ ": " ~ hits ~ " hits";
+    if (getprop("payload/armament/msg") == 1) {
+      #setprop("/sim/multiplay/chat", phrase);   Old damage system
+        #armament.defeatSpamFilter(phrase);
+    print("Guns hit target");
+        var msg = notifications.ArmamentNotification.new("mhit", 4, -1*(damage.shells["M61A1 shell"][0]+1));
+        msg.RelativeAltitude = 0;
+        msg.Bearing = 0;
+        msg.Distance = hits;
+        msg.RemoteCallsign = callsign;
+        notifications.hitBridgedTransmitter.NotifyAll(msg);
+        screen.log.write("Guns Hit!");
+        damage.damageLog.push("You hit "~callsign~" with "~"M61A1 shells"~", "~hits~" times.");
+    } else {
+        setprop("/sim/messages/atc", phrase);
+    }
+    hit_callsign = "";
+    hit_timer = nil;
+    hits_count = 0;
+}
+
+# setup impact listener
 setlistener("/ai/models/model-impact", impact_listener, 0, 0);
-
-var hitmessage = func(typeOrd) {
-  var phrase = typeOrd ~ " hit: " ~ hit_callsign ~ ": " ~ hits_count ~ " hits";
-  if (getprop("payload/armament/msg") == 1) {
-    defeatSpamFilter(phrase);
-  } else {
-    setprop("/sim/messages/atc", phrase);
-  }
-  hit_callsign = "";
-  hit_timer = nil;
-  hits_count = 0;
+setprop("/controls/armament/target-selected",0);
+setprop("/controls/armament/weapon-selected",0);
+var pickle = func() {
+    if (getprop("controls/armament/pickle") == 1) {
+        print("pickle on");
+    } else {
+        print("pickle off");
+    }
 }
 
-var spams = 0;
-var spamList = [];
 
-var defeatSpamFilter = func (str) {
-  spams += 1;
-  if (spams == 15) {
-    spams = 1;
-  }
-  str = str~":";
-  for (var i = 1; i <= spams; i+=1) {
-    str = str~".";
-  }
-  var myCallsign = getprop("sim/multiplay/callsign");
-  if (myCallsign != nil and find(myCallsign, str) != -1) {
-      str = myCallsign~": "~str;
-  }
-  var newList = [str];
-  for (var i = 0; i < size(spamList); i += 1) {
-    append(newList, spamList[i]);
-  }
-  spamList = newList;
+
+setlistener("/controls/armament/trigger",fire_MG);
+setlistener("/controls/armament/pickle",fire_MG_pic);
+
+
+
+
+
+var switch_target = func(){
+    if(getprop("/controls/armament/target-selected") == 1) {
+        radar.next_Target_Index();
+        setprop("/controls/armament/target-selected", 0);   
+    }
+    if(getprop("/controls/armament/target-selected") == -1) {
+        radar.previous_Target_Index();
+        setprop("/controls/armament/target-selected", 0);   
+    }
 }
 
-var spamLoop = func {
-  var spam = pop(spamList);
-  if (spam != nil) {
-    setprop("/sim/multiplay/chat", spam);
-  }
-  settimer(spamLoop, 1.20);
+# Target switch
+setlistener("/controls/armament/target-selected",switch_target);
+
+
+var switch_weapon = func(){
+    if(getprop("/controls/armament/weapon-selected") == 1) {
+        # AA
+        if (getprop("/controls/armament/selected-weapon") == "none"){
+            setprop("/controls/armament/selected-weapon","Aim-120");
+            setprop("/controls/armament/selected-weapon-digit",2);
+            screen.log.write("Joystick: A/A Selected: "~getprop("/controls/armament/selected-weapon")~"");
+            setprop("/controls/armament/weapon-selected", 0);   
+            return 0;
+            
+        }
+        if (getprop("/controls/armament/selected-weapon") == "GBU-39"){
+            setprop("/controls/armament/selected-weapon","Aim-120");
+            setprop("/controls/armament/selected-weapon-digit",2);
+            screen.log.write("Joystick: A/A Selected: "~getprop("/controls/armament/selected-weapon")~"");
+            setprop("/controls/armament/weapon-selected", 0);   
+            return 0;
+            
+        }
+        if (getprop("/controls/armament/selected-weapon") == "JDAM"){
+            setprop("/controls/armament/selected-weapon","Aim-120");
+            setprop("/controls/armament/selected-weapon-digit",2);
+            screen.log.write("Joystick: A/A Selected: "~getprop("/controls/armament/selected-weapon")~"");
+            setprop("/controls/armament/weapon-selected", 0);   
+            return 0;
+        }
+        if (getprop("/controls/armament/selected-weapon") == "Aim-9x"){
+            setprop("/controls/armament/selected-weapon","Aim-120");
+            setprop("/controls/armament/selected-weapon-digit",2);
+            screen.log.write("Joystick: A/A Selected: "~getprop("/controls/armament/selected-weapon")~"");
+            setprop("/controls/armament/weapon-selected", 0);   
+            return 0;
+        }
+        if (getprop("/controls/armament/selected-weapon") == "Aim-120"){
+            setprop("/controls/armament/selected-weapon","Aim-260");
+            setprop("/controls/armament/selected-weapon-digit",4);
+            screen.log.write("Joystick: A/A Selected: "~getprop("/controls/armament/selected-weapon")~"");
+            setprop("/controls/armament/weapon-selected", 0);   
+            return 0;
+        }
+        if (getprop("/controls/armament/selected-weapon") == "Aim-260"){
+            setprop("/controls/armament/selected-weapon","Aim-9x");
+            setprop("/controls/armament/selected-weapon-digit",1);
+            screen.log.write("Joystick: A/A Selected: "~getprop("/controls/armament/selected-weapon")~"");
+            setprop("/controls/armament/weapon-selected", 0);   
+            return 0;
+        }
+
+        setprop("/controls/armament/weapon-selected", 0);   
+    }
+    if(getprop("/controls/armament/weapon-selected") == -1) {
+        # AG
+        if (getprop("/controls/armament/selected-weapon") == "none" or getprop("/controls/armament/selected-weapon") == "Aim-120" or getprop("/controls/armament/selected-weapon") == "Aim-260" or getprop("/controls/armament/selected-weapon") == "Aim-9x"){
+            setprop("/controls/armament/selected-weapon","GBU-39");
+            setprop("/controls/armament/selected-weapon-digit",3);
+            screen.log.write("Joystick: A/G Selected: "~getprop("/controls/armament/selected-weapon")~"");
+            setprop("/controls/armament/weapon-selected", 0);   
+            return 0;
+        }
+        if (getprop("/controls/armament/selected-weapon") == "GBU-39"){
+            setprop("/controls/armament/selected-weapon","JDAM");
+            setprop("/controls/armament/selected-weapon-digit",4);
+            screen.log.write("Joystick: A/G Selected: "~getprop("/controls/armament/selected-weapon")~"");
+            setprop("/controls/armament/weapon-selected", 0);   
+            return 0;
+        }
+        if (getprop("/controls/armament/selected-weapon") == "JDAM"){
+            setprop("/controls/armament/selected-weapon","GBU-39");
+            setprop("/controls/armament/selected-weapon-digit",1);
+            screen.log.write("Joystick: A/G Selected: "~getprop("/controls/armament/selected-weapon")~"");
+            setprop("/controls/armament/weapon-selected", 0);   
+            return 0;
+        }
+        setprop("/controls/armament/weapon-selected", 0);   
+    }
 }
 
-spamLoop();
+#switch_weapon();
+#print("ae");
 
-########################End of cannon code############################
-
- var APU_470_handler = func {
-  if (getprop("mig29/weapons/podv/T1") == 1 or getprop("mig29/weapons/podv/T1") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[1]", 154.3235835294143);
-    setprop("fdm/jsbsim/systems/podv/APU-470_1", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[1]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-470_1", 0);
-   }
-  if (getprop("mig29/weapons/podv/T2") == 1 or getprop("mig29/weapons/podv/T2") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[2]", 154.3235835294143);
-    setprop("fdm/jsbsim/systems/podv/APU-470_2", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[2]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-470_2", 0);
-   }
+var missile_reject = func(){
+    print("Reject pressed");
+    if (getprop("/controls/armament/missile-reject") == 1) {
+        #screen.log.write("Reject!");
+        CMS.updatecms();
+        CMS.trigger();
+        setprop("/controls/armament/missile-reject",0);
+    }
 }
 
- var APU_60_handler = func {
-  if (getprop("mig29/weapons/podv/T1") == 3 or getprop("mig29/weapons/podv/T1") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[3]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/APU-60_1", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[3]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-60_1", 0);
-   }
-  if (getprop("mig29/weapons/podv/T2") == 3 or getprop("mig29/weapons/podv/T2") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[4]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/APU-60_2", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[4]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-60_2", 0);
-   }
-  if (getprop("mig29/weapons/podv/T3") == 1 or getprop("mig29/weapons/podv/T3") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/APU-60_3", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-60_3", 0);
-   }
-  if (getprop("mig29/weapons/podv/T4") == 1 or getprop("mig29/weapons/podv/T4") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/APU-60_4", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-60_4", 0);
-   }
-  if (getprop("mig29/weapons/podv/T5") == 1 or getprop("mig29/weapons/podv/T5") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[7]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/APU-60_5", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[7]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-60_5", 0);
-   }
-  if (getprop("mig29/weapons/podv/T6") == 1 or getprop("mig29/weapons/podv/T6") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[8]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/APU-60_6", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[8]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-60_6", 0);
-   }
-}
 
- var APU_73_handler = func {
-  if (getprop("mig29/weapons/podv/T1") == 5 or getprop("mig29/weapons/podv/T1") == 6)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[9]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/APU-73_1", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[9]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-73_1", 0);
-   }
-  if (getprop("mig29/weapons/podv/T2") == 5 or getprop("mig29/weapons/podv/T2") == 6)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[10]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/APU-73_2", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[10]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-73_2", 0);
-   }
-  if (getprop("mig29/weapons/podv/T3") == 3 or getprop("mig29/weapons/podv/T3") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[11]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/APU-73_3", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[11]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-73_3", 0);
-   }
-  if (getprop("mig29/weapons/podv/T4") == 3 or getprop("mig29/weapons/podv/T4") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[12]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/APU-73_4", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[12]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-73_4", 0);
-   }
-  if (getprop("mig29/weapons/podv/T5") == 3 or getprop("mig29/weapons/podv/T5") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[13]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/APU-73_5", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[13]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-73_5", 0);
-   }
-  if (getprop("mig29/weapons/podv/T6") == 3 or getprop("mig29/weapons/podv/T6") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[14]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/APU-73_6", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[14]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-73_6", 0);
-   }
-}
+setlistener("/controls/armament/missile-reject",missile_reject);
 
- var BD3_UMK_handler = func {
-  if (getprop("mig29/weapons/podv/BD3-UMK_1") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[15]", 132.277357311);
-    setprop("fdm/jsbsim/systems/podv/BD3-UMK_1", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[15]", 0);
-    setprop("fdm/jsbsim/systems/podv/BD3-UMK_1", 0);
-   }
-  if (getprop("mig29/weapons/podv/BD3-UMK_2") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[16]", 132.277357311);
-    setprop("fdm/jsbsim/systems/podv/BD3-UMK_2", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[16]", 0);
-    setprop("fdm/jsbsim/systems/podv/BD3-UMK_2", 0);
-   }
-  if (getprop("mig29/weapons/podv/BD3-UMK_3") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[17]", 132.277357311);
-    setprop("fdm/jsbsim/systems/podv/BD3-UMK_3", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[17]", 0);
-    setprop("fdm/jsbsim/systems/podv/BD3-UMK_3", 0);
-   }
-  if (getprop("mig29/weapons/podv/BD3-UMK_4") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[18]", 132.277357311);
-    setprop("fdm/jsbsim/systems/podv/BD3-UMK_4", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[18]", 0);
-    setprop("fdm/jsbsim/systems/podv/BD3-UMK_4", 0);
-   }
-}
 
- var MBD3_U2T_handler = func {
-  if (getprop("mig29/weapons/podv/MBD3-U2T_1") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[19]", 308.647167059);
-    setprop("fdm/jsbsim/systems/podv/MBD3-U2T_1", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[19]", 0);
-    setprop("fdm/jsbsim/systems/podv/MBD3-U2T_1", 0);
-   }
-  if (getprop("mig29/weapons/podv/MBD3-U2T_2") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[20]", 308.647167059);
-    setprop("fdm/jsbsim/systems/podv/MBD3-U2T_2", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[20]", 0);
-    setprop("fdm/jsbsim/systems/podv/MBD3-U2T_2", 0);
-   }
-  if (getprop("mig29/weapons/podv/MBD3-U2T_3") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[21]", 308.647167059);
-    setprop("fdm/jsbsim/systems/podv/MBD3-U2T_3", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[21]", 0);
-    setprop("fdm/jsbsim/systems/podv/MBD3-U2T_3", 0);
-   }
-  if (getprop("mig29/weapons/podv/MBD3-U2T_4") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[22]", 308.647167059);
-    setprop("fdm/jsbsim/systems/podv/MBD3-U2T_4", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[22]", 0);
-    setprop("fdm/jsbsim/systems/podv/MBD3-U2T_4", 0);
-   }
+var stickreporter = func(){
+    if(getprop("/controls/armament/stick-selector") == 1)screen.log.write("Selected M61A1 Vulcon.",1,0.4,0.4);
+    else{screen.log.write("Selected missiles.",1,0.4,0.4);}
 }
+setlistener("/controls/armament/stick-selector",stickreporter);
 
- var APU_68_handler = func {
-  if (getprop("mig29/weapons/podv/APU-68_1") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[23]", 88.184904874);
-    setprop("fdm/jsbsim/systems/podv/APU-68_1", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[23]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-68_1", 0);
-   }
-  if (getprop("mig29/weapons/podv/APU-68_2") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[24]", 88.184904874);
-    setprop("fdm/jsbsim/systems/podv/APU-68_2", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[24]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-68_2", 0);
-   }
-  if (getprop("mig29/weapons/podv/APU-68_3") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[25]", 88.184904874);
-    setprop("fdm/jsbsim/systems/podv/APU-68_3", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[25]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-68_3", 0);
-   }
-  if (getprop("mig29/weapons/podv/APU-68_4") == 1)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[26]", 88.184904874);
-    setprop("fdm/jsbsim/systems/podv/APU-68_4", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[26]", 0);
-    setprop("fdm/jsbsim/systems/podv/APU-68_4", 0);
-   }
-}
+switch_weapon_timer = maketimer(0,switch_weapon);
+switch_weapon_timer.start();
 
- var R_27R_handler = func {
-  if (getprop("mig29/weapons/podv/T1") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[27]", 154.3235835294143);
-    setprop("fdm/jsbsim/systems/podv/R-27R_1", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[27]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-27R_1", 0);
-   }
-  if (getprop("mig29/weapons/podv/T2") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[28]", 154.3235835294143);
-    setprop("fdm/jsbsim/systems/podv/R-27R_2", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[28]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-27R_2", 0);
-   }
-}
-
- var R_60M_handler = func {
-  if (getprop("mig29/weapons/podv/T1") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[29]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/R-60M_1", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[29]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-60M_1", 0);
-   }
-  if (getprop("mig29/weapons/podv/T2") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[30]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/R-60M_2", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[30]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-60M_2", 0);
-   }
-  if (getprop("mig29/weapons/podv/T3") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[31]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/R-60M_3", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[31]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-60M_3", 0);
-   }
-  if (getprop("mig29/weapons/podv/T4") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[32]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/R-60M_4", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[32]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-60M_4", 0);
-   }
-  if (getprop("mig29/weapons/podv/T5") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[33]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/R-60M_5", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[33]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-60M_5", 0);
-   }
-  if (getprop("mig29/weapons/podv/T6") == 2)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[34]", 70.54792389916082);
-    setprop("fdm/jsbsim/systems/podv/R-60M_6", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[34]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-60M_6", 0);
-   }
-}
-
- var R_73_handler = func {
-  if (getprop("mig29/weapons/podv/T1") == 6)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[35]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/R-73_1", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[35]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-73_1", 0);
-   }
-  if (getprop("mig29/weapons/podv/T2") == 6)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[36]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/R-73_2", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[36]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-73_2", 0);
-   }
-  if (getprop("mig29/weapons/podv/T3") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[37]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/R-73_3", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[37]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-73_3", 0);
-   }
-  if (getprop("mig29/weapons/podv/T4") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[38]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/R-73_4", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[38]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-73_4", 0);
-   }
-  if (getprop("mig29/weapons/podv/T5") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[39]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/R-73_5", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[39]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-73_5", 0);
-   }
-  if (getprop("mig29/weapons/podv/T6") == 4)
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[40]", 108.02650847059);
-    setprop("fdm/jsbsim/systems/podv/R-73_6", 1);
-   }
-  else
-   {
-    setprop("fdm/jsbsim/inertia/pointmass-weight-lbs[40]", 0);
-    setprop("fdm/jsbsim/systems/podv/R-73_6", 0);
-   }
-}
-
-# Обработчики выборпа оружия на точках подвесок
-var Pylon_none             = "none";
-var Pylon_PTB              = "PTB";
-var Pylon_R_27R            = "R-27R";
-var Pylon_R_60M            = "R-60M";
-var Pylon_R_73             = "R-73";
-var Pylon_BetAB_500        = "BetAB-500";
-var Pylon_BetAB_500ShP     = "BetAB-500ShP";
-var Pylon_FAB_250_M_62     = "FAB-250 M-62";
-var Pylon_FAB_250TS        = "FAB-250TS";
-var Pylon_FAB_250ShL       = "FAB-250ShL";
-var Pylon_FAB_500_M_62     = "FAB-500 M-62";
-var Pylon_FAB_500ShL       = "FAB-500ShL";
-var Pylon_FAB_500ShN       = "FAB-500ShN";
-var Pylon_ODAB_500PM       = "ODAB-500PM";
-var Pylon_OFAB_100_120     = "OFAB-100-120";
-var Pylon_OFAB_250_270     = "OFAB-250-270";
-var Pylon_OFAB_250ShL      = "OFAB-250ShL";
-var Pylon_OFAB_250ShN      = "OFAB-250ShN";
-var Pylon_OFAB_500U        = "OFAB-500U";
-var Pylon_OFAB_500ShR      = "OFAB-500ShR";
-var Pylon_OFZAB_500        = "OFZAB-500";
-var Pylon_KMGU_2           = "KMGU-2";
-var Pylon_RBK_250_AO_1     = "RBK-250 AO-1";
-var Pylon_RBK_250_PTAB_2_5 = "RBK-250 PTAB-2.5";
-var Pylon_RBK_500_AO_2_5RT = "RBK-500 AO-2.5RT";
-var Pylon_RBK_500_PTAB_1M  = "RBK-500 PTAB-1M";
-var Pylon_ZB_500ASM        = "ZB-500ASM";
-var Pylon_ZB_500GD         = "ZB-500GD";
-var Pylon_ZB_500ShM        = "ZB-500ShM";
-var Pylon_S_8BM            = "S-8BM";
-var Pylon_S_8DM            = "S-8DM";
-var Pylon_S_8KOM           = "S-8KOM";
-var Pylon_S_8OM            = "S-8OM";
-var Pylon_S_8PM            = "S-8PM";
-var Pylon_S_24B            = "S-24B";
-
- var PylonPTB_handler = func {
-  if (getprop("/gear/gear[1]/wow") == 1)
-   {
-    if (getprop("mig29/controls/Weapons/podv/PTB") == Pylon_none)
-     {setprop("mig29/weapons/podv/PTB", 0);}
-    if (getprop("mig29/controls/Weapons/podv/PTB") == Pylon_PTB)
-     {setprop("mig29/weapons/podv/PTB", 1);}
-   }
-}
-
- var Pylon1_handler = func {
-  if (getprop("/gear/gear[1]/wow") == 1)
-   {
-    if (getprop("mig29/controls/Weapons/podv/pylon1") == Pylon_none)
-     {setprop("mig29/weapons/podv/T1", 0);}
-    if (getprop("mig29/controls/Weapons/podv/pylon1") == Pylon_R_27R)
-     {setprop("mig29/weapons/podv/T1", 2);}
-    if (getprop("mig29/controls/Weapons/podv/pylon1") == Pylon_R_60M)
-     {setprop("mig29/weapons/podv/T1", 4);}
-    if (getprop("mig29/controls/Weapons/podv/pylon1") == Pylon_R_73)
-     {setprop("mig29/weapons/podv/T1", 6);}
-    
-    if (getprop("mig29/controls/Weapons/podv/pylon1") == Pylon_FAB_500_M_62)
-     {setprop("mig29/weapons/podv/T1", 13);}
-    if (getprop("mig29/controls/Weapons/podv/pylon1") == Pylon_OFAB_250_270)
-     {setprop("mig29/weapons/podv/T1", 19);}
-   }
-}
-
- var Pylon2_handler = func {
-  if (getprop("/gear/gear[1]/wow") == 1)
-   {
-    if (getprop("mig29/controls/Weapons/podv/pylon2") == Pylon_none)
-     {setprop("mig29/weapons/podv/T2", 0);}
-    if (getprop("mig29/controls/Weapons/podv/pylon2") == Pylon_R_27R)
-     {setprop("mig29/weapons/podv/T2", 2);}
-    if (getprop("mig29/controls/Weapons/podv/pylon2") == Pylon_R_60M)
-     {setprop("mig29/weapons/podv/T2", 4);}
-    if (getprop("mig29/controls/Weapons/podv/pylon2") == Pylon_R_73)
-     {setprop("mig29/weapons/podv/T2", 6);}
-    
-    if (getprop("mig29/controls/Weapons/podv/pylon2") == Pylon_FAB_500_M_62)
-     {setprop("mig29/weapons/podv/T2", 13);}
-    if (getprop("mig29/controls/Weapons/podv/pylon2") == Pylon_OFAB_250_270)
-     {setprop("mig29/weapons/podv/T2", 19);}
-   }
-}
-
- var Pylon3_handler = func {
-  if (getprop("/gear/gear[1]/wow") == 1)
-   {
-    if (getprop("mig29/controls/Weapons/podv/pylon3") == Pylon_none)
-     {setprop("mig29/weapons/podv/T3", 0);}
-    if (getprop("mig29/controls/Weapons/podv/pylon3") == Pylon_R_60M)
-     {setprop("mig29/weapons/podv/T3", 2);}
-    if (getprop("mig29/controls/Weapons/podv/pylon3") == Pylon_R_73)
-     {setprop("mig29/weapons/podv/T3", 4);}
-    
-    if (getprop("mig29/controls/Weapons/podv/pylon3") == Pylon_FAB_500_M_62)
-     {setprop("mig29/weapons/podv/T3", 13);}
-    if (getprop("mig29/controls/Weapons/podv/pylon3") == Pylon_OFAB_250_270)
-     {setprop("mig29/weapons/podv/T3", 17);}
-   }
-}
-
- var Pylon4_handler = func {
-  if (getprop("/gear/gear[1]/wow") == 1)
-   {
-    if (getprop("mig29/controls/Weapons/podv/pylon4") == Pylon_none)
-     {setprop("mig29/weapons/podv/T4", 0);}
-    if (getprop("mig29/controls/Weapons/podv/pylon4") == Pylon_R_60M)
-     {setprop("mig29/weapons/podv/T4", 2);}
-    if (getprop("mig29/controls/Weapons/podv/pylon4") == Pylon_R_73)
-     {setprop("mig29/weapons/podv/T4", 4);}
-    
-    if (getprop("mig29/controls/Weapons/podv/pylon4") == Pylon_FAB_500_M_62)
-     {setprop("mig29/weapons/podv/T4", 13);}
-    if (getprop("mig29/controls/Weapons/podv/pylon4") == Pylon_OFAB_250_270)
-     {setprop("mig29/weapons/podv/T4", 17);}
-   }
-}
-
- var Pylon5_handler = func {
-  if (getprop("/gear/gear[1]/wow") == 1)
-   {
-    if (getprop("mig29/controls/Weapons/podv/pylon5") == Pylon_none)
-     {setprop("mig29/weapons/podv/T5", 0);}
-    if (getprop("mig29/controls/Weapons/podv/pylon5") == Pylon_R_60M)
-     {setprop("mig29/weapons/podv/T5", 2);}
-    if (getprop("mig29/controls/Weapons/podv/pylon5") == Pylon_R_73)
-     {setprop("mig29/weapons/podv/T5", 4);}
-   }
-}
-
- var Pylon6_handler = func {
-  if (getprop("/gear/gear[1]/wow") == 1)
-   {
-    if (getprop("mig29/controls/Weapons/podv/pylon6") == Pylon_none)
-     {setprop("mig29/weapons/podv/T6", 0);}
-    if (getprop("mig29/controls/Weapons/podv/pylon6") == Pylon_R_60M)
-     {setprop("mig29/weapons/podv/T6", 2);}
-    if (getprop("mig29/controls/Weapons/podv/pylon6") == Pylon_R_73)
-     {setprop("mig29/weapons/podv/T6", 4);}
-   }
-}
-
- var Weapon_init = func {
-  LTTs_Control();
-  setlistener("mig29/weapons/podv/T1", APU_470_handler);
-  setlistener("mig29/weapons/podv/T2", APU_470_handler);
-  setlistener("mig29/weapons/podv/T1", APU_60_handler);
-  setlistener("mig29/weapons/podv/T2", APU_60_handler);
-  setlistener("mig29/weapons/podv/T3", APU_60_handler);
-  setlistener("mig29/weapons/podv/T4", APU_60_handler);
-  setlistener("mig29/weapons/podv/T5", APU_60_handler);
-  setlistener("mig29/weapons/podv/T6", APU_60_handler);
-  setlistener("mig29/weapons/podv/T1", APU_73_handler);
-  setlistener("mig29/weapons/podv/T2", APU_73_handler);
-  setlistener("mig29/weapons/podv/t3", APU_73_handler);
-  setlistener("mig29/weapons/podv/T4", APU_73_handler);
-  setlistener("mig29/weapons/podv/T5", APU_73_handler);
-  setlistener("mig29/weapons/podv/T6", APU_73_handler);
-  setlistener("mig29/weapons/podv/BD3-UMK_1", BD3_UMK_handler);
-  setlistener("mig29/weapons/podv/BD3-UMK_2", BD3_UMK_handler);
-  setlistener("mig29/weapons/podv/BD3-UMK_3", BD3_UMK_handler);
-  setlistener("mig29/weapons/podv/BD3-UMK_4", BD3_UMK_handler);
-  setlistener("mig29/weapons/podv/MBD3-U2T_1", MBD3_U2T_handler);
-  setlistener("mig29/weapons/podv/MBD3-U2T_2", MBD3_U2T_handler);
-  setlistener("mig29/weapons/podv/MBD3-U2T_3", MBD3_U2T_handler);
-  setlistener("mig29/weapons/podv/MBD3-U2T_4", MBD3_U2T_handler);
-  setlistener("mig29/weapons/podv/APU-68_1", APU_68_handler);
-  setlistener("mig29/weapons/podv/APU-68_2", APU_68_handler);
-  setlistener("mig29/weapons/podv/APU-68_3", APU_68_handler);
-  setlistener("mig29/weapons/podv/APU-68_4", APU_68_handler);
-  setlistener("mig29/weapons/podv/T1", R_27R_handler);
-  setlistener("mig29/weapons/podv/T2", R_27R_handler);
-  setlistener("mig29/weapons/podv/T1", R_60M_handler);
-  setlistener("mig29/weapons/podv/T2", R_60M_handler);
-  setlistener("mig29/weapons/podv/T3", R_60M_handler);
-  setlistener("mig29/weapons/podv/T4", R_60M_handler);
-  setlistener("mig29/weapons/podv/T5", R_60M_handler);
-  setlistener("mig29/weapons/podv/T6", R_60M_handler);
-  setlistener("mig29/weapons/podv/T1", R_73_handler);
-  setlistener("mig29/weapons/podv/T2", R_73_handler);
-  setlistener("mig29/weapons/podv/T3", R_73_handler);
-  setlistener("mig29/weapons/podv/T4", R_73_handler);
-  setlistener("mig29/weapons/podv/T5", R_73_handler);
-  setlistener("mig29/weapons/podv/T6", R_73_handler);
-  setlistener("mig29/controls/Weapons/podv/PTB", PylonPTB_handler);
-  setlistener("mig29/controls/Weapons/podv/pylon1", Pylon1_handler);
-  setlistener("mig29/controls/Weapons/podv/pylon2", Pylon2_handler);
-  setlistener("mig29/controls/Weapons/podv/pylon3", Pylon3_handler);
-  setlistener("mig29/controls/Weapons/podv/pylon4", Pylon4_handler);
-  setlistener("mig29/controls/Weapons/podv/pylon5", Pylon5_handler);
-  setlistener("mig29/controls/Weapons/podv/pylon6", Pylon6_handler);
-}
-
- var press_fire = func {
-  if (getprop("mig29/systems/electrical/buses/AC3x200-bus-1/volts") > 100) {
-   if (getprop("/ai/submodels/submodel[0]/count") > 0) {
-      setprop("/controls/armament/trigger", 1);
-   }
-  }
-}
-
- var unpress_fire = func {
-  setprop("/controls/armament/trigger", 0);
-}
-
- var PTB_jettison = func {
-  setprop("mig29/systems/fuelsystem/PTBjv", getprop("fdm/jsbsim/propulsion/tank[7]/contents-lbs"));
-  setprop("consumables/fuel/tank[7]/level-lbs", 0);
-  setprop("controls/armament/station[0]/jettison-all", 1);
-  setprop("mig29/weapons/podv/PTB", 0);
-}
-
- var LTTs_Control = func {
-  if (getprop("mig29/instrumentation/electrical/v27") > 24)
-   {
-    if (getprop("mig29/controls/BVP/emerg_release") == 1 and getprop("/ai/submodels/submodel[2]/count") > 0) {setprop("mig29/systems/BVP/release", 1);}
-    if (getprop("mig29/controls/BVP/emerg_release") == 1 and getprop("/ai/submodels/submodel[2]/count") == 0) {setprop("mig29/systems/BVP/release", 0);}
-   }
-  settimer(LTTs_Control, 0);
-}
-
- var cannon_rearm = func {
-  if (getprop("/gear/gear[0]/wow") == 1)
-   {
-    setprop("/ai/submodels/submodel[0]/count", 150);
-   }
-}
