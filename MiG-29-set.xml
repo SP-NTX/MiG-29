@@ -521,6 +521,17 @@
  <payload>
 	<armament>
 		<enable-craters type="bool">true</enable-craters>
+		<GSh-30>
+            <ammo type="double">200</ammo>
+            <trigger type="bool">false</trigger>
+            <jammed type="bool">false</jammed>
+        </GSh-30>
+		<modelsUseCase type="bool">true</modelsUseCase>
+        <modelsUpperCase type="bool">true</modelsUpperCase>
+		<MP-lat type="string">rotors/main/blade[0]/flap-deg</MP-lat>
+        <MP-lon type="string">rotors/main/blade[1]/flap-deg</MP-lon>
+        <MP-alt type="string">rotors/main/blade[2]/flap-deg</MP-alt>
+        <tacview type="bool">false</tacview>
 		<MLW-bearing type="double">0</MLW-bearing>
 		<MLW-count type="int">0</MLW-count>
 		<MLW-launcher type="string"></MLW-launcher>
@@ -744,6 +755,19 @@
 	<damage>
 		<file>Aircraft/MiG-29/Nasal/damage.nas</file>
 	</damage>
+	
+	<armament>
+        <file>Aircraft/MiG-29/Nasal/weapons/missile-code.nas</file>
+    </armament>
+    <stations>
+        <file>Aircraft/MiG-29/Nasal/weapons/station-manager.nas</file>
+    </stations>
+    <fc>
+        <file>Aircraft/MiG-29/Nasal/weapons/fire-control.nas</file>
+    </fc>
+    <pylons>
+        <file>Aircraft/MiG-29/Nasal/weapons/pylons.nas</file>
+    </pylons>
 </nasal>
 
  <fdm>
