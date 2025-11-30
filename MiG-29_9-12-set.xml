@@ -341,6 +341,13 @@
        <dialog-name>scenario28</dialog-name>
       </binding>
      </item> 
+	 <item>
+        <label>Event Log</label>
+        <binding>
+            <command>dialog-show</command>
+            <dialog-name>flightlog</dialog-name>
+        </binding>
+     </item>
      <item>
       <label>Tacview Record</label>
       <binding>
@@ -509,8 +516,36 @@
   <path>/sim/aircraft-class</path>
   <path>/sim/aircraft-operator</path>
  </aircraft-data>
-
  </sim>
+ 
+ <payload>
+	<armament>
+		<enable-craters type="bool">true</enable-craters>
+		<MLW-bearing type="double">0</MLW-bearing>
+		<MLW-count type="int">0</MLW-count>
+		<MLW-launcher type="string"></MLW-launcher>
+		<MAW-bearing type="double">0</MAW-bearing>
+		<MAW-active type="bool">false</MAW-active>
+		<MAW-semiactive type="bool">false</MAW-semiactive>
+		<msg type="bool">false</msg>
+		<spike type="bool">false</spike>
+		<models type="string">Aircraft/MiG-29/Models/emesary/</models>
+	</armament>
+	<d-config>
+		<full_damage_dist_m type="double">3</full_damage_dist_m>
+		<use_hitpoints_instead_of_failure_modes_bool type="bool">false</use_hitpoints_instead_of_failure_modes_bool>
+		<hp_max type="double">80</hp_max>
+		<hitable_by_air_munitions type="bool">true</hitable_by_air_munitions>
+		<hitable_by_cannon type="bool">true</hitable_by_cannon>
+		<is_fleet type="bool">false</is_fleet>
+		<rwr_to_screen type="bool">true</rwr_to_screen>
+		<rwr_audio_extended type="bool">false</rwr_audio_extended>
+		<tacview_supported type="bool">false</tacview_supported>
+		<m28_auto type="bool">false</m28_auto>
+		<mlw_max type="double">0</mlw_max>
+		<auto_flare_caller type="bool">false</auto_flare_caller>
+	</d-config>
+ </payload>
 
   <consumables>
    <fuel>
@@ -671,10 +706,6 @@
    <weapon>
     <file>Aircraft/MiG-29/Nasal/weapons.nas</file>
    </weapon>
-   <damage>
-    <file>Aircraft/MiG-29/Nasal/damage.nas</file>
-   </damage>
- 
    <hud>
     <file>Aircraft/MiG-29/Nasal/hud.nas</file>
    </hud>
@@ -702,7 +733,18 @@
    <mig29-scripts>
      <file>Aircraft/MiG-29/Nasal/mig29-scripts.nas</file>
    </mig29-scripts>
-  </nasal>
+   
+   
+  
+	<notifications>
+		<file>Aircraft/MiG-29/Nasal/ArmamentNotification.nas</file>
+		<file>Aircraft/MiG-29/Nasal/GeoBridgedTransmitter.nas</file>
+	</notifications>
+	
+	<damage>
+		<file>Aircraft/MiG-29/Nasal/damage.nas</file>
+	</damage>
+</nasal>
 
  <fdm>
   <jsbsim>
