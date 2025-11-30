@@ -4,7 +4,7 @@
 
  <model>
   <name>Drag_Parachute</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/TPK-27/TPK-27.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/TPK-27/TPK-27.xml</path>
   <offsets>
    <x-m> 6.397</x-m>
    <y-m> 0.0</y-m>
@@ -14,7 +14,7 @@
 
  <model>
   <name>PTB-1500</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/PTB-1500/PTB-1500.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/PTB-1500/PTB-1500.xml</path>
   <offsets>
    <x-m> 2.540</x-m>
    <y-m> 0.000</y-m>
@@ -24,7 +24,7 @@
 
  <model>
   <name>APU-470_L</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-470_L.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-470_L.xml</path>
   <offsets>
    <x-m> 2.00</x-m>
    <y-m>-2.44</y-m>
@@ -34,7 +34,7 @@
 
  <model>
   <name>APU-470_R</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-470_R.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-470_R.xml</path>
   <offsets>
    <x-m> 2.00</x-m>
    <y-m> 2.44</y-m>
@@ -44,7 +44,7 @@
 
  <model>
   <name>APU-60-1_1</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-60-1_1.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-60-1_1.xml</path>
   <offsets>
    <x-m> 0.35 </x-m>
    <y-m>-2.44</y-m>
@@ -54,7 +54,7 @@
 
  <model>
   <name>APU-60-1_2</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-60-1_2.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-60-1_2.xml</path>
   <offsets>
    <x-m> 0.35 </x-m>
    <y-m> 2.44</y-m>
@@ -64,7 +64,7 @@
 
  <model>
   <name>APU-60-1_3</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-60-1_3.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-60-1_3.xml</path>
   <offsets>
    <x-m> 1.0 </x-m>
    <y-m>-3.193846154</y-m>
@@ -74,7 +74,7 @@
 
  <model>
   <name>APU-60-1_4</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-60-1_4.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-60-1_4.xml</path>
   <offsets>
    <x-m> 1.0 </x-m>
    <y-m> 3.193846154</y-m>
@@ -84,7 +84,7 @@
 
  <model>
   <name>APU-60-1_5</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-60-1_5.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-60-1_5.xml</path>
   <offsets>
    <x-m> 1.55 </x-m>
    <y-m>-3.867692308</y-m>
@@ -94,7 +94,7 @@
 
  <model>
   <name>APU-60-1_6</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-60-1_6.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-60-1_6.xml</path>
   <offsets>
    <x-m> 1.55 </x-m>
    <y-m> 3.867692308</y-m>
@@ -104,7 +104,7 @@
 
  <model>
   <name>APU-73-1_1</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-73-1_1.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-73-1_1.xml</path>
   <offsets>
    <x-m> 2.28 </x-m>
    <y-m>-2.44</y-m>
@@ -114,7 +114,7 @@
 
  <model>
   <name>APU-73-1_2</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-73-1_2.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-73-1_2.xml</path>
   <offsets>
    <x-m> 2.28 </x-m>
    <y-m> 2.44</y-m>
@@ -124,7 +124,7 @@
 
  <model>
   <name>APU-73-1_3</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-73-1_3.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-73-1_3.xml</path>
   <offsets>
    <x-m> 2.88 </x-m>
    <y-m>-3.193846154</y-m>
@@ -134,7 +134,7 @@
 
  <model>
   <name>APU-73-1_4</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-73-1_4.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-73-1_4.xml</path>
   <offsets>
    <x-m> 2.88 </x-m>
    <y-m> 3.193846154</y-m>
@@ -144,7 +144,7 @@
 
  <model>
   <name>APU-73-1_5</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-73-1_5.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-73-1_5.xml</path>
   <offsets>
    <x-m> 3.45 </x-m>
    <y-m>-3.867692308</y-m>
@@ -154,7 +154,7 @@
 
  <model>
   <name>APU-73-1_6</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/APU-73-1_6.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/APU-73-1_6.xml</path>
   <offsets>
    <x-m> 3.45 </x-m>
    <y-m> 3.867692308</y-m>
@@ -164,7 +164,7 @@
 
  <model>
   <name>R-27R_L</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-27R/R-27R_L.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-27R/R-27R_L.xml</path>
   <offsets>
    <x-m> 1.00</x-m>
    <y-m>-2.44</y-m>
@@ -174,7 +174,7 @@
 
  <model>
   <name>R-27R_R</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-27R/R-27R_R.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-27R/R-27R_R.xml</path>
   <offsets>
    <x-m> 1.00</x-m>
    <y-m> 2.44</y-m>
@@ -184,7 +184,7 @@
 
  <model>
   <name>R-60M_1</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-60M/R-60M_1.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-60M/R-60M_1.xml</path>
   <offsets>
    <x-m> 0.35 </x-m>
    <y-m>-2.44</y-m>
@@ -194,7 +194,7 @@
 
  <model>
   <name>R-60M_2</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-60M/R-60M_2.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-60M/R-60M_2.xml</path>
   <offsets>
    <x-m> 0.35 </x-m>
    <y-m> 2.44</y-m>
@@ -204,7 +204,7 @@
 
  <model>
   <name>R-60M_3</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-60M/R-60M_3.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-60M/R-60M_3.xml</path>
   <offsets>
    <x-m> 1.0 </x-m>
    <y-m>-3.193846154</y-m>
@@ -214,7 +214,7 @@
 
  <model>
   <name>R-60M_4</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-60M/R-60M_4.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-60M/R-60M_4.xml</path>
   <offsets>
    <x-m> 1.0 </x-m>
    <y-m> 3.193846154</y-m>
@@ -224,7 +224,7 @@
 
  <model>
   <name>R-60M_5</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-60M/R-60M_5.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-60M/R-60M_5.xml</path>
   <offsets>
    <x-m> 1.55 </x-m>
    <y-m>-3.867692308</y-m>
@@ -234,7 +234,7 @@
 
  <model>
   <name>R-60M_6</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-60M/R-60M_6.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-60M/R-60M_6.xml</path>
   <offsets>
    <x-m> 1.55 </x-m>
    <y-m> 3.867692308</y-m>
@@ -244,7 +244,7 @@
 
  <model>
   <name>R-73_1</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-73/R-73_1.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-73/R-73_1.xml</path>
   <offsets>
    <x-m> 1.76 </x-m>
    <y-m>-2.44</y-m>
@@ -254,7 +254,7 @@
 
  <model>
   <name>R-73_2</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-73/R-73_2.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-73/R-73_2.xml</path>
   <offsets>
    <x-m> 1.76 </x-m>
    <y-m> 2.44</y-m>
@@ -264,7 +264,7 @@
 
  <model>
   <name>R-73_3</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-73/R-73_3.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-73/R-73_3.xml</path>
   <offsets>
    <x-m> 2.36 </x-m>
    <y-m>-3.193846154</y-m>
@@ -274,7 +274,7 @@
 
  <model>
   <name>R-73_4</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-73/R-73_4.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-73/R-73_4.xml</path>
   <offsets>
    <x-m> 2.36 </x-m>
    <y-m> 3.193846154</y-m>
@@ -284,7 +284,7 @@
 
  <model>
   <name>R-73_5</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-73/R-73_5.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-73/R-73_5.xml</path>
   <offsets>
    <x-m> 2.93 </x-m>
    <y-m>-3.867692308</y-m>
@@ -294,7 +294,7 @@
 
  <model>
   <name>R-73_6</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/R-73/R-73_6.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/R-73/R-73_6.xml</path>
   <offsets>
    <x-m> 2.93 </x-m>
    <y-m> 3.867692308</y-m>
@@ -305,7 +305,7 @@
 <!-- BD3 -->
  <model>
   <name>BD3-UMK2_1</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/BD3-UMK2_1.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/BD3-UMK2_1.xml</path>
   <offsets>
    <x-m> 1.9 </x-m>
    <y-m>-2.44</y-m>
@@ -315,7 +315,7 @@
 
  <model>
   <name>BD3-UMK2_2</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/BD3-UMK2_2.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/BD3-UMK2_2.xml</path>
   <offsets>
    <x-m> 1.9 </x-m>
    <y-m> 2.44</y-m>
@@ -325,7 +325,7 @@
 
  <model>
   <name>BD3-UMK2_3</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/BD3-UMK2_3.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/BD3-UMK2_3.xml</path>
   <offsets>
    <x-m> 2.55 </x-m>
    <y-m>-3.193846154</y-m>
@@ -335,7 +335,7 @@
 
  <model>
   <name>BD3-UMK2_4</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/APU_BD/BD3-UMK2_4.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/APU_BD/BD3-UMK2_4.xml</path>
   <offsets>
    <x-m> 2.55 </x-m>
    <y-m> 3.193846154</y-m>
@@ -347,7 +347,7 @@
 
  <model>
   <name>OFAB-250-270_1</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/AB-250/OFAB-250-270_1.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/AB-250/OFAB-250-270_1.xml</path>
   <offsets>
    <x-m> 1.49</x-m>
    <y-m>-2.44</y-m>
@@ -357,7 +357,7 @@
 
  <model>
   <name>OFAB-250-270_2</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/AB-250/OFAB-250-270_2.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/AB-250/OFAB-250-270_2.xml</path>
   <offsets>
    <x-m> 1.49</x-m>
    <y-m> 2.44</y-m>
@@ -367,7 +367,7 @@
 
  <model>
   <name>OFAB-250-270_3</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/AB-250/OFAB-250-270_3.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/AB-250/OFAB-250-270_3.xml</path>
   <offsets>
    <x-m> 2.14</x-m>
    <y-m>-3.193846154</y-m>
@@ -377,7 +377,7 @@
 
  <model>
   <name>OFAB-250-270_4</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/AB-250/OFAB-250-270_4.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/AB-250/OFAB-250-270_4.xml</path>
   <offsets>
    <x-m> 2.14</x-m>
    <y-m> 3.193846154</y-m>
@@ -387,7 +387,7 @@
 
  <model>
   <name>FAB-500_M-62_1</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/AB-500/FAB-500_M-62_1.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/AB-500/FAB-500_M-62_1.xml</path>
   <offsets>
    <x-m> 1.49</x-m>
    <y-m>-2.44</y-m>
@@ -397,7 +397,7 @@
 
  <model>
   <name>FAB-500_M-62_2</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/AB-500/FAB-500_M-62_2.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/AB-500/FAB-500_M-62_2.xml</path>
   <offsets>
    <x-m> 1.49</x-m>
    <y-m> 2.44</y-m>
@@ -407,7 +407,7 @@
 
  <model>
   <name>FAB-500_M-62_3</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/AB-500/FAB-500_M-62_3.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/AB-500/FAB-500_M-62_3.xml</path>
   <offsets>
    <x-m> 2.14</x-m>
    <y-m>-3.193846154</y-m>
@@ -417,7 +417,7 @@
 
  <model>
   <name>FAB-500_M-62_4</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/AB-500/FAB-500_M-62_4.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/AB-500/FAB-500_M-62_4.xml</path>
   <offsets>
    <x-m> 2.14</x-m>
    <y-m> 3.193846154</y-m>

@@ -4,7 +4,7 @@
 
  <submodel>
   <name>bullet-splash</name>
-  <model>Aircraft/MiG-29_9-12/Models/Submodels/GSh-301/splash.xml</model>
+  <model>Aircraft/MiG-29/Models/Submodels/GSh-301/splash.xml</model>
   <speed>0</speed>
   <repeat>false</repeat>
   <delay>0</delay>

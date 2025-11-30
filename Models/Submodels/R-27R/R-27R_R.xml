@@ -38,7 +38,7 @@
 
 <!-- <model>
   <name>R-27R_smoke</name>
-  <path>Aircraft/MiG-29_9-12/Models/Effects/R-27R_2_smoke.xml</path>
+  <path>Aircraft/MiG-29/Models/Effects/R-27R_2_smoke.xml</path>
   <offsets>
    <x-m>2.415</x-m>
    <y-m>0.0  </y-m>

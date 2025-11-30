@@ -11,7 +11,7 @@
 
   <engine>
    <name>thrust_1_intake_internal</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/base/thrust_front.wav</path>
+   <path>Aircraft/MiG-29/Sounds/base/thrust_front.wav</path>
    <mode>looped</mode>
    <condition>
     <property>sim/current-view/internal</property>
@@ -41,7 +41,7 @@
 
   <engine>
    <name>thrust_2_intake_internal</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/base/thrust_front.wav</path>
+   <path>Aircraft/MiG-29/Sounds/base/thrust_front.wav</path>
    <mode>looped</mode>
    <condition>
     <property>sim/current-view/internal</property>
@@ -77,7 +77,7 @@
 
   <engine>
    <name>thrust_1_intake</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/base/thrust_front.wav</path>
+   <path>Aircraft/MiG-29/Sounds/base/thrust_front.wav</path>
    <mode>looped</mode>
    <condition>
     <not>
@@ -105,7 +105,7 @@
 
   <engine>
    <name>thrust_2_intake</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/base/thrust_front.wav</path>
+   <path>Aircraft/MiG-29/Sounds/base/thrust_front.wav</path>
    <mode>looped</mode>
    <condition>
     <not>
@@ -157,7 +157,7 @@
 
   <engine>
    <name>Engine1</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/engines/RD-33_cleaned_cropped.wav</path>
+   <path>Aircraft/MiG-29/Sounds/engines/RD-33_cleaned_cropped.wav</path>
    <mode>looped</mode>
    <volume>
     <property>/mig29/systems/engines/Sn2_Left</property>
@@ -172,7 +172,7 @@
 
   <engine>
    <name>Engine2</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/engines/RD-33_cleaned_cropped.wav</path>
+   <path>Aircraft/MiG-29/Sounds/engines/RD-33_cleaned_cropped.wav</path>
    <mode>looped</mode>
    <volume>
     <property>/mig29/systems/engines/Sn2_Right</property>
@@ -188,7 +188,7 @@
 
   <engine>
    <name>thrust_1</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/base/thrust_no_mids.wav</path>
+   <path>Aircraft/MiG-29/Sounds/base/thrust_no_mids.wav</path>
    <mode>looped</mode>
    <volume>
     <property>/engines/engine[0]/n2</property>
@@ -198,7 +198,7 @@
 
   <engine>
    <name>thrust_2</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/base/thrust_no_mids.wav</path>
+   <path>Aircraft/MiG-29/Sounds/base/thrust_no_mids.wav</path>
    <mode>looped</mode>
    <volume>
     <property>/engines/engine[1]/n2</property>
@@ -219,7 +219,7 @@
 
   <engine>
    <name>thrust_MIL_1</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/base/thrust_max.wav</path>
+   <path>Aircraft/MiG-29/Sounds/base/thrust_max.wav</path>
    <mode>looped</mode>
    <volume>
     <property>engines/engine[0]/n2</property>
@@ -257,7 +257,7 @@
 
   <engine>
    <name>thrust_MIL_2</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/base/thrust_max.wav</path>
+   <path>Aircraft/MiG-29/Sounds/base/thrust_max.wav</path>
    <mode>looped</mode>
    <volume>
     <property>/engines/engine[1]/n2</property>
@@ -298,7 +298,7 @@
 
   <exhaust_distance>
    <name>exhaust_distance</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/base/afterburner_distance.wav</path>
+   <path>Aircraft/MiG-29/Sounds/base/afterburner_distance.wav</path>
    <mode>looped</mode>
    <condition>
     <not>
@@ -339,7 +339,7 @@
 
   <!--engine>
    <name>Engine3</name>
-   <path>Aircraft/MiG-29_9-12/Sounds/base/thrust.wav</path>
+   <path>Aircraft/MiG-29/Sounds/base/thrust.wav</path>
    <mode>looped</mode>
    <volume>
     <property>/mig29/systems/engines/n2</property>
@@ -553,7 +553,7 @@
   <RV21>
    <name>rv21da</name>
    <type>avionics</type>
-   <path>Aircraft/MiG-29_9-12/Sounds/avionics/RV21.wav</path>
+   <path>Aircraft/MiG-29/Sounds/avionics/RV21.wav</path>
    <mode>looped</mode>
    <condition>
     <and>
@@ -569,7 +569,7 @@
   <SPO15>
    <name>SPO15_lockon</name>
    <type>avionics</type>
-   <path>Aircraft/MiG-29_9-12/Sounds/avionics/SPO-15_lockon.wav</path>
+   <path>Aircraft/MiG-29/Sounds/avionics/SPO-15_lockon.wav</path>
    <mode>looped</mode>
    <condition>
     <property>/mig29/instrumentation/SPO-15LM/lockon</property>
@@ -579,7 +579,7 @@
   <SPO15>
    <name>SPO15_fire</name>
    <type>avionics</type>
-   <path>Aircraft/MiG-29_9-12/Sounds/avionics/SPO-15_fire.wav</path>
+   <path>Aircraft/MiG-29/Sounds/avionics/SPO-15_fire.wav</path>
    <mode>looped</mode>
    <condition>
     <property>/mig29/instrumentation/SPO-15LM/fire</property>
@@ -592,7 +592,7 @@
   <voice>
    <name>RI_Proverka</name>
    <type>avionics</type>
-   <path>Aircraft/MiG-29_9-12/Sounds/Almaz-UP/Proverka.wav</path>
+   <path>Aircraft/MiG-29/Sounds/Almaz-UP/Proverka.wav</path>
    <mode>looped</mode>
    <condition>
     <property>/mig29/instrumentation/RI/Proverka</property>
