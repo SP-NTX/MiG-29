@@ -244,10 +244,10 @@
   <gui>
    <dialogs>
     <ARK-19>
-     <dialog include="Dialogs/ARK-19.xml"/>
+     <dialog include="gui/Dialogs/ARK-19.xml"/>
     </ARK-19>
     <R-862>
-     <dialog include="Dialogs/R-862.xml"/>
+     <dialog include="gui/Dialogs/R-862.xml"/>
     </R-862>
    </dialogs>
   </gui>
@@ -341,13 +341,6 @@
        <dialog-name>scenario28</dialog-name>
       </binding>
      </item> 
-	 <item>
-        <label>Event Log</label>
-        <binding>
-            <command>dialog-show</command>
-            <dialog-name>flightlog</dialog-name>
-        </binding>
-     </item>
      <item>
       <label>Tacview Record</label>
       <binding>
