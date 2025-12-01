@@ -47,8 +47,8 @@
   <object-name>R-73.ND4</object-name>
   <condition>
    <equals>
-    <property>mig29/weapons/podv/T6</property>
-    <value>4</value>
+    <property>/payload/armament/station/id-6-type</property>
+    <value>R-73</value>
    </equals>
   </condition>
  </animation>

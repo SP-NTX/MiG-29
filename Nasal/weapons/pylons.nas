@@ -58,19 +58,19 @@ var pylonSets = {
     fuel12C: {name: fuelTankCenter1200.type, content: [fuelTankCenter1200], fireOrder: [0], launcherDragArea: 0.35, launcherMass: 531, launcherJettisonable: 1, showLongTypeInsteadOfCount: 1, category: 2},
 
     # A/A weapons on non-wing pylons:
-	r73:    {name: "R-73",   content: ["R-73"], fireOrder: [0], launcherDragArea: -0.025, launcherMass: 53, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
+	R73:    {name: "R-73",      content: ["R-73"], fireOrder: [0], launcherDragArea: -0.05, launcherMass: 0, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 1},
     majic:    {name: "Majic",   content: ["Majic"], fireOrder: [0], launcherDragArea: -0.025, launcherMass: 53, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
 };
 
 # sets. The first in the list is the default. Earlier in the list means higher up in dropdown menu.
 # These are not strictly needed in F-14 beside from the Empty, since it uses a custom payload dialog, but there for good measure.
-var pylon1set = [pylonSets.empty, pylonSets.majic, pylonSets.r73];
-var pylon2set = [pylonSets.empty, pylonSets.majic, pylonSets.r73, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl];
-var pylon3set = [pylonSets.empty, pylonSets.m83, pylonSets.m83h, pylonSets.m83d, pylonSets.m83hd, pylonSets.c87, pylonSets.c87d, pylonSets.bl, pylonSets.bld, pylonSets.fuel12L];
-var pylon4set = [pylonSets.empty, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl, pylonSets.fuel12C];
-var pylon5set = [pylonSets.empty, pylonSets.m83, pylonSets.m83h, pylonSets.m83d, pylonSets.m83hd, pylonSets.c87, pylonSets.c87d, pylonSets.bl, pylonSets.bld, pylonSets.fuel12R];
-var pylon6set = [pylonSets.empty, pylonSets.majic, pylonSets.r73, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl];
-var pylon7set = [pylonSets.empty, pylonSets.majic, pylonSets.r73];
+var pylon1set = [pylonSets.empty, pylonSets.majic, pylonSets.R73];
+var pylon2set = [pylonSets.empty, pylonSets.majic, pylonSets.R73, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl];
+var pylon3set = [pylonSets.empty, pylonSets.m83, pylonSets.R73, pylonSets.m83d, pylonSets.m83hd, pylonSets.c87, pylonSets.c87d, pylonSets.bl, pylonSets.bld, pylonSets.fuel12L];
+var pylon4set = [pylonSets.empty, pylonSets.m83, pylonSets.c87, pylonSets.bl, pylonSets.fuel12C];
+var pylon5set = [pylonSets.empty, pylonSets.m83, pylonSets.R73, pylonSets.m83d, pylonSets.m83hd, pylonSets.c87, pylonSets.c87d, pylonSets.bl, pylonSets.bld, pylonSets.fuel12R];
+var pylon6set = [pylonSets.empty, pylonSets.majic, pylonSets.R73, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl];
+var pylon7set = [pylonSets.empty, pylonSets.majic, pylonSets.R73];
 
 # pylons
 pylonI = stations.InternalStation.new("Internal gun mount", 7, [pylonSets.mm20], props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[7]",1));
