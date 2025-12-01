@@ -58,32 +58,32 @@
       <preview>
         <type>exterior</type>
         <splash type="bool">true</splash>
-        <path>Splashscreen/Mig-29-1.jpg</path>
+        <path>Splashscreen/Mig-29-1.png</path>
       </preview>
       <preview>
         <type>exterior</type>
         <splash type="bool">true</splash>
-        <path>Splashscreen/Mig-29-2.jpg</path>
+        <path>Splashscreen/Mig-29-2.png</path>
       </preview>
       <preview>
         <type>exterior</type>
         <splash type="bool">true</splash>
-        <path>Splashscreen/Mig-29-3.jpg</path>
+        <path>Splashscreen/Mig-29-3.png</path>
       </preview>
       <preview>
         <type>exterior</type>
         <splash type="bool">true</splash>
-        <path>Splashscreen/Mig-29-4.jpg</path>
+        <path>Splashscreen/Mig-29-4.png</path>
       </preview>
       <preview>
         <type>exterior</type>
         <splash type="bool">true</splash>
-        <path>Splashscreen/Mig-29-5.jpg</path>
+        <path>Splashscreen/Mig-29-5.png</path>
       </preview>
       <preview>
         <type>exterior</type>
         <splash type="bool">true</splash>
-        <path>Splashscreen/Mig-29-6.jpg</path>
+        <path>Splashscreen/Mig-29-6.png</path>
       </preview>
     </previews>
 
