@@ -1,15 +1,10 @@
 <?xml version="1.0"?>
-<!--
-  MiG 29 (9-12)
-  February 2011   Sergey "Mercenary_Mercury" Salov - JSBSIM version. Stage 1
-  October 2011  Stage 2
--->
 
 <PropertyList>
 
  <sim>
 
-  <description>MiG-29 (9-12) - lightweight frontline fighter</description>
+  <description>Mikoyan-Gurevich MiG-29</description>
   <author>Sergey "Mercenary_Mercury" Salov</author>
   <authors>
     <author n="0">
@@ -35,16 +30,15 @@
     </author>
   </authors>  
   <urls>
-    <home-page>https://github.com/ShFsn/MiG-29</home-page>
-    <support>https://github.com/ShFsn/MiG-29/issues</support>
-    <wikipedia>https://en.wikipedia.org/wiki/Mikoyan_MiG-29</wikipedia>
-    <code-repository>https://github.com/ShFsn/MiG-29</code-repository>
+    <home-page>https://github.com/SP-NTX/MiG-29</home-page>
+    <support>https://github.com/SP-NTX/MiG-29/issues</support>
+    <code-repository>https://github.com/SP-NTX/MiG-29</code-repository>
   </urls>
 
   <flight-model>jsb</flight-model>
   <aero>MiG-29</aero>
 
-  <aircraft-version>0.8</aircraft-version>
+  <aircraft-version>1.0</aircraft-version>
 
   <status>beta</status>
   <rating>
@@ -532,7 +526,6 @@
     <range-factor type="double" archive="n">0.001888</range-factor>
     <minimized type="bool" archive="y">false</minimized>
     <selected type="int">3</selected>
-    <!-- inicio en pruebas -->
     <enabled type="bool">true</enabled>
     <az-field type="double">120</az-field>
     <range type="double">150</range>
