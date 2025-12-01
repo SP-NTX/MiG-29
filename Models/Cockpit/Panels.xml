@@ -49,7 +49,7 @@
 
  <model>
   <name>ppld</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/ppld/ppld.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/ppld/ppld.xml</path>
   <offsets>
    <x-m>-3.884</x-m>
    <y-m>-0.351</y-m>
@@ -62,7 +62,7 @@
 <!-- Autopilot panel -->
  <model>
   <name>PU-189</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/PU-189/PU-189.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/PU-189/PU-189.xml</path>
   <offsets>
    <x-m>-3.883</x-m>
    <y-m>-0.343</y-m>
@@ -75,7 +75,7 @@
 <!-- Radar control panel -->
  <model>
   <name>PUR-31</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/PUR-31/PUR-31.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/PUR-31/PUR-31.xml</path>
   <offsets>
    <x-m>-3.892</x-m>
    <y-m>-0.351</y-m>
@@ -88,7 +88,7 @@
 <!-- Gear control-->
  <model>
   <name>gc</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/gc/gc.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/gc/gc.xml</path>
   <offsets>
    <x-m>-3.907</x-m>
    <y-m>-0.317</y-m>
@@ -101,7 +101,7 @@
 <!-- Landing/taxing lamps control -->
  <model>
   <name>frp</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/frp/frp.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/frp/frp.xml</path>
   <offsets>
    <x-m>-3.909</x-m>
    <y-m>-0.327</y-m>
@@ -114,7 +114,7 @@
 <!-- OEPrNK panel -->
  <model>
   <name>PSR-31</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/PSR-31/PSR-31.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/PSR-31/PSR-31.xml</path>
   <offsets>
    <x-m>-3.917</x-m>
    <y-m>-0.292</y-m>
@@ -126,7 +126,7 @@
 <!-- Navigation System panel -->
  <model>
   <name>SN</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/SN/SN.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/SN/SN.xml</path>
   <offsets>
    <x-m>-3.877</x-m>
    <y-m> 0.348</y-m>
@@ -138,7 +138,7 @@
 <!-- Control panel ILS-31 -->
  <model>
   <name>ILS-31cp</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/ILS-31cp/ILS-31cp.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/ILS-31cp/ILS-31cp.xml</path>
   <offsets>
    <x-m>-3.859</x-m>
    <y-m> 0.000</y-m>
@@ -149,7 +149,7 @@
 
  <model>
   <name>pcd</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/pcd/pcd.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/pcd/pcd.xml</path>
   <offsets>
    <x-m>-4.003</x-m>
    <y-m>-0.160</y-m>
@@ -159,7 +159,7 @@
 
  <model>
   <name>pvi</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/pvi/pvi.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/pvi/pvi.xml</path>
   <offsets>
    <x-m>-4.003</x-m>
    <y-m>-0.040</y-m>
@@ -169,7 +169,7 @@
 
  <model>
   <name>dac</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/dac/dac.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/dac/dac.xml</path>
   <offsets>
    <x-m>-4.004</x-m>
    <y-m> 0.018</y-m>
@@ -179,7 +179,7 @@
 
  <model>
   <name>USTbutton</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/USTbutton/USTbutton.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/USTbutton/USTbutton.xml</path>
   <offsets>
    <x-m>-3.997</x-m>
    <y-m> 0.280</y-m>
@@ -191,7 +191,7 @@
 <!-- Задатчик температуры в кабине -->
  <model>
   <name>ZT</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/ZT/ZT.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/ZT/ZT.xml</path>
   <offsets>
    <x-m>-4.003</x-m>
    <y-m> 0.000</y-m>
@@ -201,7 +201,7 @@
 
  <model>
   <name>UNN</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/UNN/UNN.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/UNN/UNN.xml</path>
   <offsets>
    <x-m>-4.003</x-m>
    <y-m> 0.000</y-m>
@@ -213,7 +213,7 @@
 
  <model>
   <name>SUO</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/SUO/SUO.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/SUO/SUO.xml</path>
   <offsets>
    <x-m>-3.820</x-m>
    <y-m>-0.341</y-m>
@@ -226,7 +226,7 @@
 <!-- Управление аварийными режимами двигателей и воздухозаборников -->
  <model>
   <name>ESEP</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/ESEP/ESEP.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/ESEP/ESEP.xml</path>
   <offsets>
    <x-m>-3.704</x-m>
    <y-m>-0.341</y-m>
@@ -239,7 +239,7 @@
 <!-- Flaps and "slats" control panel -->
  <model>
   <name>flaps29</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/flaps29/flaps29.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/flaps29/flaps29.xml</path>
   <offsets>
    <x-m>-3.585</x-m>
    <y-m>-0.3683</y-m>
@@ -252,7 +252,7 @@
 <!-- R-862 radiostation control panel -->
  <model>
   <name>R-862</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/R-862/R-862.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/R-862/R-862.xml</path>
   <offsets>
    <x-m>-3.561</x-m>
    <y-m>-0.3128</y-m>
@@ -265,7 +265,7 @@
 <!-- Щиток АРУ -->
  <model>
   <name>ARU</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/ARU/ARU.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/ARU/ARU.xml</path>
   <offsets>
    <x-m>-3.475</x-m>
    <y-m>-0.341</y-m>
@@ -277,7 +277,7 @@
 
  <model>
   <name>pvdu</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/pvdu/pvdu.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/pvdu/pvdu.xml</path>
   <offsets>
    <x-m>-3.351</x-m>
    <y-m>-0.341</y-m>
@@ -288,7 +288,7 @@
  </model>
  <model>
   <name>DU-7</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/DU-7/DU-7.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/DU-7/DU-7.xml</path>
   <offsets>
    <x-m>-3.351</x-m>
    <y-m>-0.341</y-m>
@@ -302,7 +302,7 @@
 
  <model>
   <name>SPO-15LMcp29</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/SPO-15LMcp29/SPO-15LMcp29.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/SPO-15LMcp29/SPO-15LMcp29.xml</path>
   <offsets>
    <x-m>-3.813</x-m>
    <y-m> 0.340</y-m>
@@ -313,7 +313,7 @@
 
  <model>
   <name>SO_RI</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/SO_RI/SO_RI.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/SO_RI/SO_RI.xml</path>
   <offsets>
    <x-m>-3.737</x-m>
    <y-m> 0.387</y-m>
@@ -325,7 +325,7 @@
  </model>
  <model>
   <name>SRO</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/SRO/SRO.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/SRO/SRO.xml</path>
   <offsets>
    <x-m>-3.737</x-m>
    <y-m> 0.387</y-m>
@@ -339,7 +339,7 @@
 <!-- Второй пульт СРО -->
  <model>
   <name>kd15</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/SRO/kd15.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/SRO/kd15.xml</path>
   <offsets>
    <x-m>-3.545</x-m>
    <y-m> 0.381</y-m>
@@ -353,7 +353,7 @@
 <!-- ARK-19 - automatic radiocompass -->
  <model>
   <name>ARK-19</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/ARK-19/ARK-19.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/ARK-19/ARK-19.xml</path>
   <offsets>
    <x-m>-3.6925</x-m>
    <y-m> 0.326</y-m>
@@ -367,7 +367,7 @@
 <!-- Пульт управления радиокомандной линией -->
  <model>
   <name>E502-20</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/E502-20/E502-20.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/E502-20/E502-20.xml</path>
   <offsets>
    <x-m>-3.497</x-m>
    <y-m> 0.328</y-m>
@@ -381,7 +381,7 @@
 <!-- Пульт запуска/прокрутки двигателй и управления электрикой (горизонтальная часть системы) -->
  <model>
   <name>pde</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/pde/pde.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/pde/pde.xml</path>
   <offsets>
    <x-m>-3.409</x-m>
    <y-m> 0.357</y-m>
@@ -394,7 +394,7 @@
 
  <model>
   <name>pgsp</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/pgsp/pgsp.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/pgsp/pgsp.xml</path>
   <offsets>
    <x-m>-3.238</x-m>
    <y-m> 0.322</y-m>
@@ -408,7 +408,7 @@
 <!-- Lightning -->
  <model>
   <name>hcgp</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/hcgp/hcgp.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/hcgp/hcgp.xml</path>
   <offsets>
    <x-m>-3.760</x-m>
    <y-m> 0.394</y-m>
@@ -417,7 +417,7 @@
  </model>
  <model>
   <name>poo</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/poo/poo.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/poo/poo.xml</path>
   <offsets>
    <x-m>-3.760</x-m>
    <y-m> 0.394</y-m>
@@ -427,7 +427,7 @@
 
  <model>
   <name>puok</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/puok/puok.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/puok/puok.xml</path>
   <offsets>
    <x-m>-3.500</x-m>
    <y-m> 0.388</y-m>
@@ -438,7 +438,7 @@
 <!-- Vertical panel - Electrosystem -->
  <model>
   <name>evp</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/evp/evp.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/evp/evp.xml</path>
   <offsets>
    <x-m>-3.365</x-m>
    <y-m> 0.405</y-m>
@@ -448,7 +448,7 @@
 
  <model>
   <name>RUFCcp</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/RUFCcp/RUFCcp.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/RUFCcp/RUFCcp.xml</path>
   <offsets>
    <x-m>-3.727</x-m>
    <y-m>-0.360</y-m>
@@ -459,7 +459,7 @@
  </model>
  <model>
   <name>RUFCcp2</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/RUFCcp/RUFCcp2.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/RUFCcp/RUFCcp2.xml</path>
   <offsets>
    <x-m>-3.658</x-m>
    <y-m>-0.376</y-m>
@@ -470,7 +470,7 @@
 
  <!--model>
   <name>a12</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Panels/a12.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels/a12.xml</path>
   <offsets>
    <x-m>-3.845</x-m>
    <y-m> 0.398</y-m>

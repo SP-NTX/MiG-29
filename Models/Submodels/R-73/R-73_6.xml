@@ -47,15 +47,15 @@
   <object-name>R-73.ND4</object-name>
   <condition>
    <equals>
-    <property>/payload/armament/station/id-6-type</property>
-    <value>R-73</value>
+    <property>mig29/weapons/podv/T6</property>
+    <value>4</value>
    </equals>
   </condition>
  </animation>
 
 <!-- <model>
   <name>R-73_smoke</name>
-  <path>Aircraft/MiG-29/Models/Effects/R-73_smoke.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Effects/R-73_smoke.xml</path>
   <offsets>
    <x-m>1.438</x-m>
    <y-m>0.0  </y-m>

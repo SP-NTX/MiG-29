@@ -109,6 +109,17 @@
   <SVS>
    <control type="bool" arhcive="y">false</control>
   </SVS>
+  <Weapons>
+   <podv>
+    <pylon1 type="string">none</pylon1>
+    <pylon2 type="string">none</pylon2>
+    <pylon3 type="string">none</pylon3>
+    <pylon4 type="string">none</pylon4>
+    <pylon5 type="string">none</pylon5>
+    <pylon6 type="string">none</pylon6>
+    <PTB type="string">PTB</PTB>
+   </podv>
+  </Weapons>
  </controls>
 <!-- Индикация -->
  <instrumentation>

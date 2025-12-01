@@ -7,7 +7,7 @@
 
  <model>
   <name>Tablo-1</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Tablo/Tablo-1.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Tablo/Tablo-1.xml</path>
   <offsets>
    <x-m>-3.913</x-m>
    <y-m> 0.336</y-m>
@@ -18,7 +18,7 @@
 
  <model>
   <name>Tablo-2</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Tablo/Tablo-2.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Tablo/Tablo-2.xml</path>
   <offsets>
    <x-m>-3.758</x-m>
    <y-m>-0.353</y-m>
@@ -29,7 +29,7 @@
 
  <model>
   <name>Tablo-3</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Tablo/Tablo-3.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Tablo/Tablo-3.xml</path>
   <offsets>
    <x-m>-4.004</x-m>
    <y-m> 0.060</y-m>
@@ -39,7 +39,7 @@
 
  <model>
   <name>Tablo-4</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Tablo/Tablo-4.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Tablo/Tablo-4.xml</path>
   <offsets>
    <x-m>-3.741</x-m>
    <y-m> 0.325</y-m>
@@ -50,7 +50,7 @@
 
  <model>
   <name>Tablo-5</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Tablo/Tablo-5.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Tablo/Tablo-5.xml</path>
   <offsets>
    <x-m>-3.737</x-m>
    <y-m> 0.387</y-m>
@@ -63,7 +63,7 @@
 
  <model>
   <name>Tablo-6</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Tablo/Tablo-6.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Tablo/Tablo-6.xml</path>
   <offsets>
    <x-m>-3.235</x-m>
    <y-m> 0.395</y-m>

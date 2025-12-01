@@ -8,7 +8,7 @@
  <path>KSTs-2.ac</path>
 
  <effect>
-  <inherits-from>Aircraft/MiG-29/Models/Effects/model-transparent</inherits-from>
+  <inherits-from>Aircraft/MiG-29_9-12/Models/Effects/model-transparent</inherits-from>
   <object-name>KSTs-2.glass</object-name>
  </effect>
 

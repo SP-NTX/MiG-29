@@ -685,7 +685,7 @@ if( getprop( "/fdm/jsbsim/ap/roll-hold" ) ) sau_stab_kren(0); # drop roll
 setlistener("/mig29/switches/SAU", SAU_power, 0, 0 );
 setlistener("/mig29/systems/SAU/serviceable", SAU_damp);
 
-#gui.Dialog.new("/sim/gui/dialogs/MiG-29/nav/dialog", "Aircraft/MiG-29/Dialogs/nav.xml");
+#gui.Dialog.new("/sim/gui/dialogs/MiG-29_9-12/nav/dialog", "Aircraft/MiG-29/Dialogs/nav.xml");
 
 
 #setprop("sim/menubar/default/menu[3]/enabled", 0 );

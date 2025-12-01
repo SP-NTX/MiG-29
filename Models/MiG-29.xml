@@ -9,15 +9,15 @@
 
  <path>MiG-29.ac</path>
  <sound>
-    <path>Aircraft/MiG-29/Sounds/mp_sound.xml</path>
+    <path>Aircraft/MiG-29_9-12/Sounds/mp_sound.xml</path>
   </sound>
  <model>
   <name>Cockpit</name>
-  <path>Aircraft/MiG-29/Models/Cockpit/Cockpit.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Cockpit.xml</path>
  </model>
  <model>
   <name>JetFlame</name>
-  <path>Aircraft/MiG-29/Models/JetFlame.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/JetFlame.xml</path>
   <condition>
    <not>
     <property>/sim/rendering/shaders/skydome</property>
@@ -25,20 +25,20 @@
   </condition>
  </model>
  <model>
-  <path>Aircraft/MiG-29/Models/Effects/Afterburner/als-afterburner-L.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Effects/Afterburner/als-afterburner-L.xml</path>
    <condition>
     <property>/sim/rendering/shaders/skydome</property>
    </condition>
  </model>
  <model>
-  <path>Aircraft/MiG-29/Models/Effects/Afterburner/als-afterburner-R.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Effects/Afterburner/als-afterburner-R.xml</path>
    <condition>
     <property>/sim/rendering/shaders/skydome</property>
    </condition>
  </model>
  <model>
   <name>WingtipLampLeft</name>
-  <path>Aircraft/MiG-29/Models/Lights/WingtipLampLeft.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Lights/WingtipLampLeft.xml</path>
   <offsets>
    <x-m> 4.29</x-m>
    <y-m>-5.73</y-m>
@@ -47,7 +47,7 @@
  </model>
  <model>
   <name>WingtipLampRight</name>
-  <path>Aircraft/MiG-29/Models/Lights/WingtipLampRight.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Lights/WingtipLampRight.xml</path>
   <offsets>
    <x-m> 4.29</x-m>
    <y-m> 5.73</y-m>
@@ -56,7 +56,7 @@
  </model>
  <model>
   <name>TailLamp</name>
-  <path>Aircraft/MiG-29/Models/Lights/TailLamp.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Lights/TailLamp.xml</path>
   <offsets>
    <x-m> 7.301</x-m>
    <y-m>-1.811</y-m>
@@ -65,17 +65,17 @@
  </model>
  <model>
   <name>Lights</name>
-  <path>Aircraft/MiG-29/Models/Lights/Lights.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Lights/Lights.xml</path>
  </model>
 
  <model>
   <name>Submodels</name>
-  <path>Aircraft/MiG-29/Models/Submodels/Submodels.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Submodels/Submodels.xml</path>
  </model>
 
 <!-- Engines smoke -->
  <model>
-  <path>Aircraft/MiG-29/Models/Effects/smoke1.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Effects/smoke1.xml</path>
   <offsets>
    <x-m> 7.15814</x-m>
    <y-m>-0.8401959</y-m>
@@ -86,7 +86,7 @@
   </offsets>
  </model>
  <model>
-  <path>Aircraft/MiG-29/Models/Effects/smoke2.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Effects/smoke2.xml</path>
   <offsets>
    <x-m> 7.15814</x-m>
    <y-m> 0.8401959</y-m>
@@ -98,7 +98,7 @@
  </model>
  <!-- Contrail -->
  <model>
-  <path>Aircraft/MiG-29/Models/Effects/contrail1.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Effects/contrail1.xml</path>
   <offsets>
    <x-m>19.15813</x-m>
    <y-m>-1.3448122</y-m>
@@ -109,7 +109,7 @@
   </offsets>
  </model>
  <model>
-  <path>Aircraft/MiG-29/Models/Effects/contrail2.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Effects/contrail2.xml</path>
   <offsets>
    <x-m>19.15813</x-m>
    <y-m> 1.3448122</y-m>
@@ -121,7 +121,7 @@
  </model>
 <!-- Wingtip contrail -->
  <model>
-  <path>Aircraft/MiG-29/Models/Effects/vapour.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Effects/vapour.xml</path>
   <offsets>
    <x-m> 3.831</x-m>
    <y-m>-5.64785</y-m>
@@ -132,7 +132,7 @@
   </offsets>
  </model>
  <model>
-  <path>Aircraft/MiG-29/Models/Effects/vapour.xml</path>
+  <path>Aircraft/MiG-29_9-12/Models/Effects/vapour.xml</path>
   <offsets>
    <x-m> 3.831</x-m>
    <y-m> 5.64785</y-m>
@@ -173,7 +173,7 @@
 
  <nasal>
   <load>
-   var livery_update = aircraft.livery_update.new("Aircraft/MiG-29/Models/Liveries");
+   var livery_update = aircraft.livery_update.new("Aircraft/MiG-29_9-12/Models/Liveries");
    ##############################################################################
    # The on-load Nasal is not executed when this file is loaded as the user
    # aircraft.
@@ -252,7 +252,7 @@
  </nasal>
 
  <effect>
-  <inherits-from>Aircraft/MiG-29/Models/Effects/Shaders/reflect-uber</inherits-from>
+  <inherits-from>Aircraft/MiG-29_9-12/Models/Effects/Shaders/reflect-uber</inherits-from>
   <object-name>Pitot</object-name>
   <object-name>Radome</object-name>
   <object-name>fuselage</object-name>
@@ -486,7 +486,7 @@
  </animation>
 
  <effect>
-  <inherits-from>Aircraft/MiG-29/Models/Effects/Shaders/glass-reflect-uber</inherits-from>
+  <inherits-from>Aircraft/MiG-29_9-12/Models/Effects/Shaders/glass-reflect-uber</inherits-from>
   <object-name>FrontGlass</object-name>
   <object-name>CanopyGlass</object-name>
   <object-name>KOLS_Glass</object-name>
@@ -498,7 +498,7 @@
  </effect>
 
  <effect>
-  <inherits-from>Aircraft/MiG-29/Models/Effects/Shaders/insignia-uber</inherits-from>
+  <inherits-from>Aircraft/MiG-29_9-12/Models/Effects/Shaders/insignia-uber</inherits-from>
   <object-name>Insignia</object-name>
  </effect>
 
