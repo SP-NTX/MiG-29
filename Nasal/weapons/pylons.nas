@@ -58,19 +58,19 @@ var pylonSets = {
     fuel12C: {name: fuelTankCenter1200.type, content: [fuelTankCenter1200], fireOrder: [0], launcherDragArea: 0.35, launcherMass: 531, launcherJettisonable: 1, showLongTypeInsteadOfCount: 1, category: 2},
 
     # A/A weapons on non-wing pylons:
-	aim9:    {name: "AIM-9L",   content: ["AIM-9"], fireOrder: [0], launcherDragArea: -0.025, launcherMass: 53, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
+	r73:    {name: "R-73",   content: ["R-73"], fireOrder: [0], launcherDragArea: -0.025, launcherMass: 53, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
     majic:    {name: "Majic",   content: ["Majic"], fireOrder: [0], launcherDragArea: -0.025, launcherMass: 53, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
 };
 
 # sets. The first in the list is the default. Earlier in the list means higher up in dropdown menu.
 # These are not strictly needed in F-14 beside from the Empty, since it uses a custom payload dialog, but there for good measure.
-var pylon1set = [pylonSets.empty, pylonSets.majic, pylonSets.aim9];
-var pylon2set = [pylonSets.empty, pylonSets.majic, pylonSets.aim9, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl];
+var pylon1set = [pylonSets.empty, pylonSets.majic, pylonSets.r73];
+var pylon2set = [pylonSets.empty, pylonSets.majic, pylonSets.r73, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl];
 var pylon3set = [pylonSets.empty, pylonSets.m83, pylonSets.m83h, pylonSets.m83d, pylonSets.m83hd, pylonSets.c87, pylonSets.c87d, pylonSets.bl, pylonSets.bld, pylonSets.fuel12L];
 var pylon4set = [pylonSets.empty, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl, pylonSets.fuel12C];
 var pylon5set = [pylonSets.empty, pylonSets.m83, pylonSets.m83h, pylonSets.m83d, pylonSets.m83hd, pylonSets.c87, pylonSets.c87d, pylonSets.bl, pylonSets.bld, pylonSets.fuel12R];
-var pylon6set = [pylonSets.empty, pylonSets.majic, pylonSets.aim9, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl];
-var pylon7set = [pylonSets.empty, pylonSets.majic, pylonSets.aim9];
+var pylon6set = [pylonSets.empty, pylonSets.majic, pylonSets.r73, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl];
+var pylon7set = [pylonSets.empty, pylonSets.majic, pylonSets.r73];
 
 # pylons
 pylonI = stations.InternalStation.new("Internal gun mount", 7, [pylonSets.mm20], props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[7]",1));
@@ -89,7 +89,7 @@ var pylons = [pylon1,pylon2,pylon3,pylon4,pylon5,pylon6,pylon7,pylonI];
 
 # The order of first vector in this line is the default pylon order weapons is released in.
 # The order of second vector in this line is the order cycle key would cycle through the weapons (but since the f-14 dont have that the order is not important):
-fcs = fc.FireControl.new(pylons, [0,6,1,5,2,4,3,7], ["30mm Cannon", "Majic", "AIM-9", "MK-83", "MK-83HD", "CBU-87", "BL755"]);
+fcs = fc.FireControl.new(pylons, [0,6,1,5,2,4,3,7], ["30mm Cannon", "Majic", "R-73", "MK-83", "MK-83HD", "CBU-87", "BL755"]);
 
 #print("** Pylon & fire control system started. **");
 var getDLZ = func {
@@ -125,12 +125,12 @@ var cannon_load = func {
 
 
 var bore_loop = func {
-    #enables firing of aim9 without radar. The aim-9 seeker will be fixed 3.5 degs below bore and any aircraft the gets near that will result in lock.
+    #enables firing of r73 without radar. The aim-9 seeker will be fixed 3.5 degs below bore and any aircraft the gets near that will result in lock.
     bore = 0;
     if (fcs != nil) {
         var standby = 1;#getprop("sim/multiplay/generic/int[2]");
         var aim = fcs.getSelectedWeapon();
-        if (aim != nil and (aim.type == "AIM-9" or aim.type == "MAGIC-2" or aim.type == "Majic")) {
+        if (aim != nil and (aim.type == "R-73" or aim.type == "MAGIC-2" or aim.type == "Majic")) {
             if (standby == 1) {
                 #aim.setBore(1);
                 aim.setContacts(radar_system.getCompleteList());
