@@ -334,26 +334,6 @@
        <script>aircraft.livery.dialog.open()</script>
       </binding>
      </item>
-     <item>
-      <label>Training Scenario</label>
-      <binding>
-       <command>dialog-show</command>
-       <dialog-name>scenario28</dialog-name>
-      </binding>
-     </item> 
-     <item>
-      <label>Tacview Record</label>
-      <binding>
-       <command>nasal</command>
-       <script>
-        if (tacview.starttime == 0) {
-         tacview.startwrite();
-        } else {
-         tacview.stopwrite();
-        }
-       </script>
-      </binding>
-     </item>
     </menu>
    </default>
   </menubar>
