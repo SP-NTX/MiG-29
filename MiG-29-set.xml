@@ -671,9 +671,6 @@
    <weapon>
     <file>Aircraft/MiG-29/Nasal/weapons.nas</file>
    </weapon>
-   <damage>
-    <file>Aircraft/MiG-29/Nasal/damage.nas</file>
-   </damage>
  
    <hud>
     <file>Aircraft/MiG-29/Nasal/hud.nas</file>
@@ -681,15 +678,6 @@
    <mpdb>
     <file>Aircraft/MiG-29/Nasal/mp_db.nas</file>
    </mpdb>
-   <tacview>
-    <file>Aircraft/MiG-29/Nasal/tacview.nas</file>
-   </tacview>
-   <mig28>
-    <file>Aircraft/MiG-29/Nasal/mig28.nas</file>
-   </mig28>
-   <vector>
-    <file>Aircraft/MiG-29/Nasal/vector.nas</file>
-   </vector>
    <radardist>
     <file>Aircraft/Instruments-3d/radardist/radardist.nas</file>
    </radardist>
