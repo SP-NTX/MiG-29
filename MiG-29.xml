@@ -75,347 +75,106 @@
      <z> -0.189 </z>
    </location>
 
-   <pointmass name="Pilot">
-    <weight unit="KG">85</weight>
-    <location unit="M">
-     <x>-3.3</x>
-     <y> 0.0</y>
-     <z> 0.6</z>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+  <pointmass name="pylon-left-over-wing">
+    <weight unit="LBS">1</weight>
+    <location unit="M" name="Pointmass pylon-left-over-wing">
+      <x>8.8507</x>
+      <y>-2.08</y>
+      <z>0.12</z>
     </location>
-   </pointmass>
-
-   <!-- Боевая нагрузка -->
-   <!-- АПУ-470 -->
-   <pointmass name="APU-470_L">
-    <weight unit="KG">0</weight><!-- 70 KG - 154.3235835294143 LBS -->
-    <location unit="M">
-     <x> 2.0</x>
-     <y>-2.44</y>
-     <z>-0.2875</z>
+  </pointmass>
+  <pointmass name="pylon-left-outboard-wing">
+    <weight unit="LBS">1</weight>
+    <location unit="M" name="Pointmass pylon-left-outboard-wing">
+      <x>9.0507</x>
+      <y>-2.98</y>
+      <z>-0.23</z>
     </location>
-   </pointmass>
-   <pointmass name="APU-470_R">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.0</x>
-     <y> 2.44</y>
-     <z>-0.2875</z>
+  </pointmass>
+  <pointmass name="pylon-left-inboard-wing">
+    <weight unit="LBS">1</weight>
+    <location unit="M" name="Pointmass pylon-left-inboard-wing">
+      <x>8.7507</x>
+      <y>-2.08</y>
+      <z>-0.23</z>
     </location>
-   </pointmass>
-   <!-- АПУ-60-1 -->
-   <pointmass name="APU-60-1_1">
-    <weight unit="KG">0</weight><!-- 32 KG - 70.54792389916082 LBS -->
-    <location unit="M">
-     <x> 1.845</x>
-     <y>-2.44</y>
-     <z>-0.317</z>
+  </pointmass>
+  <pointmass name="pylon-fuselage">
+    <weight unit="LBS">1</weight>
+    <location unit="M" name="Pointmass pylon-fuselage">
+      <x>8.6107</x>
+      <y>0</y>
+      <z>-0.875</z>
     </location>
-   </pointmass>
-   <pointmass name="APU-60-1_2">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 1.845</x>
-     <y> 2.44</y>
-     <z>-0.317</z>
+  </pointmass>
+  <pointmass name="pylon-right-inboard-wing">
+    <weight unit="LBS">1</weight>
+    <location unit="M" name="Pointmass pylon-right-inboard-wing">
+      <x>8.7507</x>
+      <y>2.08</y>
+      <z>-0.23</z>
     </location>
-   </pointmass>
-   <pointmass name="APU-60-1_3">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.495</x>
-     <y>-3.193846154</y>
-     <z>-0.364</z>
+  </pointmass>
+  <pointmass name="pylon-right-outboard-wing">
+    <weight unit="LBS">1</weight>
+    <location unit="M" name="Pointmass pylon-right-outboard-wing">
+      <x>9.0507</x>
+      <y>2.98</y>
+      <z>-0.23</z>
     </location>
-   </pointmass>
-   <pointmass name="APU-60-1_4">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.495</x>
-     <y> 3.193846154</y>
-     <z>-0.364</z>
+  </pointmass>
+  <pointmass name="pylon-right-over-wing">
+    <weight unit="LBS">1</weight>
+    <location unit="M" name="Pointmass pylon-right-over-wing">
+      <x>8.8507</x>
+      <y>2.08</y>
+      <z>0.12</z>
     </location>
-   </pointmass>
-   <pointmass name="APU-60-1_5">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 3.045</x>
-     <y>-3.867692308</y>
-     <z>-0.406</z>
+  </pointmass>
+  <pointmass name="internal-gun">
+    <weight unit="LBS">1</weight>
+    <location unit="M" name="Pointmass internal-gun">
+      <x>5.4147</x>
+      <y>0</y>
+      <z>-0.68</z>
     </location>
-   </pointmass>
-   <pointmass name="APU-60-1_6">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 3.045</x>
-     <y> 3.867692308</y>
-     <z>-0.406</z>
-    </location>
-   </pointmass>
-   <!-- АПУ-73-1 -->
-   <pointmass name="APU-73-1_1">
-    <weight unit="KG">0</weight><!-- 49 KG - 108.02650847059 LBS -->
-    <location unit="M">
-     <x> 2.28</x>
-     <y>-2.44</y>
-     <z>-0.399</z>
-    </location>
-   </pointmass>
-   <pointmass name="APU-73-1_2">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.28</x>
-     <y> 2.44</y>
-     <z>-0.399</z>
-    </location>
-   </pointmass>
-   <pointmass name="APU-73-1_3">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.88</x>
-     <y>-3.193846154</y>
-     <z>-0.447</z>
-    </location>
-   </pointmass>
-   <pointmass name="APU-73-1_4">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.88</x>
-     <y> 3.193846154</y>
-     <z>-0.447</z>
-    </location>
-   </pointmass>
-   <pointmass name="APU-73-1_5">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 3.45</x>
-     <y>-3.867692308</y>
-     <z>-0.487</z>
-    </location>
-   </pointmass>
-   <pointmass name="APU-73-1_6">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 3.45</x>
-     <y> 3.867692308</y>
-     <z>-0.487</z>
-    </location>
-   </pointmass>
-   <!-- БД3-УМК -->
-   <pointmass name="BD3-UMK_1">
-    <weight unit="KG">0</weight><!-- 60 KG - 132.277357311 LBS -->
-    <location unit="M">
-     <x> 2.28</x>
-     <y>-2.44</y>
-     <z>-0.399</z>
-    </location>
-   </pointmass>
-   <pointmass name="BD3-UMK_2">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.28</x>
-     <y> 2.44</y>
-     <z>-0.399</z>
-    </location>
-   </pointmass>
-   <pointmass name="BD3-UMK_3">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.88</x>
-     <y>-3.193846154</y>
-     <z>-0.447</z>
-    </location>
-   </pointmass>
-   <pointmass name="BD3-UMK_4">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.88</x>
-     <y> 3.193846154</y>
-     <z>-0.447</z>
-    </location>
-   </pointmass>
-   <!-- МБД3-У2Т-1 -->
-   <pointmass name="MBD3-U2T_1">
-    <weight unit="KG">0</weight><!-- 140 KG - 308.647167059 LBS -->
-    <location unit="M">
-     <x> 2.28</x>
-     <y>-2.44</y>
-     <z>-0.399</z>
-    </location>
-   </pointmass>
-   <pointmass name="MBD3-U2T_2">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.28</x>
-     <y> 2.44</y>
-     <z>-0.399</z>
-    </location>
-   </pointmass>
-   <pointmass name="MBD3-U2T_3">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.88</x>
-     <y>-3.193846154</y>
-     <z>-0.447</z>
-    </location>
-   </pointmass>
-   <pointmass name="MBD3-U2T_4">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.88</x>
-     <y> 3.193846154</y>
-     <z>-0.447</z>
-    </location>
-   </pointmass>
-   <!-- АПУ-68 -->
-   <pointmass name="APU-68_1">
-    <weight unit="KG">0</weight><!-- 40 KG - 88.184904874 LBS -->
-    <location unit="M">
-     <x> 2.28</x>
-     <y>-2.44</y>
-     <z>-0.399</z>
-    </location>
-   </pointmass>
-   <pointmass name="APU-68_2">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.28</x>
-     <y> 2.44</y>
-     <z>-0.399</z>
-    </location>
-   </pointmass>
-   <pointmass name="APU-68_3">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.88</x>
-     <y>-3.193846154</y>
-     <z>-0.447</z>
-    </location>
-   </pointmass>
-   <pointmass name="APU-68_4">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.88</x>
-     <y> 3.193846154</y>
-     <z>-0.447</z>
-    </location>
-   </pointmass>
-<!-- Ракеты -->
-   <!-- Р-27Р -->
-   <pointmass name="R-27R_L">
-    <weight unit="KG">0</weight><!-- 253 KG - 557.7695233277402 LBS -->
-    <location unit="M">
-     <x> 1.93</x>
-     <y>-2.44</y>
-     <z>-0.54</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-27R_R">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 1.93</x>
-     <y> 2.44</y>
-     <z>-0.54</z>
-    </location>
-   </pointmass>
-   <!-- Р-60М -->
-   <pointmass name="R-60M_1">
-    <weight unit="KG">0</weight><!-- 44 KG - 97.0033953634612 -->
-    <location unit="M">
-     <x> 1.85</x>
-     <y>-2.44</y>
-     <z>-0.487</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-60M_2">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 1.85</x>
-     <y> 2.44</y>
-     <z>-0.487</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-60M_3">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.5</x>
-     <y>-3.193846154</y>
-     <z>-0.534</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-60M_4">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.5</x>
-     <y> 3.193846154</y>
-     <z>-0.534</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-60M_5">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 3.05</x>
-     <y>-3.867692308</y>
-     <z>-0.576</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-60M_6">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 3.05</x>
-     <y> 3.867692308</y>
-     <z>-0.576</z>
-    </location>
-   </pointmass>
-   <!-- Р-73 -->
-   <pointmass name="R-73_1">
-    <weight unit="KG">0</weight><!-- 105 KG - 231.4853752941215 -->
-    <location unit="M">
-     <x> 2.36</x>
-     <y>-2.44</y>
-     <z>-0.4965</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-73_2">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.36</x>
-     <y> 2.44</y>
-     <z>-0.4965</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-73_3">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.96</x>
-     <y>-3.193846154</y>
-     <z>-0.5445</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-73_4">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 2.96</x>
-     <y> 3.193846154</y>
-     <z>-0.5445</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-73_5">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 3.53</x>
-     <y>-3.867692308</y>
-     <z>-0.5845</z>
-    </location>
-   </pointmass>
-   <pointmass name="R-73_6">
-    <weight unit="KG">0</weight>
-    <location unit="M">
-     <x> 3.53</x>
-     <y> 3.867692308</y>
-     <z>-0.5845</z>
-    </location>
-   </pointmass>
-
+  </pointmass>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
  </mass_balance>
 
  <ground_reactions>

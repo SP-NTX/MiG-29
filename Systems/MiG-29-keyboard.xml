@@ -55,20 +55,24 @@
   </binding>
  </key>
 
- <key n="101">
-  <name>e</name>
-  <desc>Gun Trigger</desc>
-  <binding>
-   <command>nasal</command>
-   <script>weapon.press_fire()</script>
-  </binding>
-  <mod-up>
-   <binding>
-    <command>nasal</command>
-    <script>weapon.unpress_fire()</script>
-   </binding>
-  </mod-up>
- </key>
+
+  <key n="101">
+    <name>e</name>
+    <desc>Guns</desc>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/armament/trigger</property>
+      <value>1</value>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>property-assign</command>
+        <property>controls/armament/trigger</property>
+        <value>0</value>
+      </binding>
+    </mod-up>
+  </key>
+
 
  <key n="111">
   <name>o</name>

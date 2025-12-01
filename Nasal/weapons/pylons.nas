@@ -1,251 +1,165 @@
-print("** Pylon & fire control system started. **");
-# launcher masses are a guess, used to identify type
-var apu23 = 90;
-var apu60 = 100;
+var ARM_SIM = -1;
+var ARM_OFF = 0;# these 3 are needed by fire-control.
+var ARM_ARM = 1;
+props.globals.getNode("controls/armament/master-arm-switch",1).setIntValue(0);
 
-var variant = getprop("/sim/variant-id");
-var pylon1 = nil; #left outboard
-var pylon2 = nil; #left inboard
-var pylon3 = nil; #left fuselage
-var pylon4 = nil; #fuselage
-var pylon5 = nil; #right fuselage
-var pylon6 = nil; #right inboard
-var pylon7 = nil; #right outboard
-var pylonI = nil; #gun
+var fcs = nil;
+var pylonI = nil;
+var pylon1 = nil;
+var pylon2 = nil;
+var pylon3 = nil;
+var pylon4 = nil;
+var pylon5 = nil;
+var pylon6 = nil;
+var pylon7 = nil;
 
-var msgA = "Please return to base.";
-var msgB = "Refill complete.";
+var msgA = "If you need to repair now, then use Menu-Location-SelectAirport instead.";
+var msgB = "Please land before changing payload.";
+var msgC = "Please land before refueling.";
 
-var cannon = stations.SubModelWeapon.new("23mm Cannon", 0.254, 510, [9], [8], props.globals.getNode("fdm/jsbsim/fcs/guntrigger",1), 0, func{return 1;}, 0);
+var cannon = stations.SubModelWeapon.new("30mm Cannon", 0.254, 150, [0,1], [], props.globals.getNode("controls/armament/trigger-gun",1), 0, nil,0);
 cannon.typeShort = "GUN";
 cannon.brevity = "Guns guns";
 
-var s5l = stations.SubModelWeapon.new("UB-32", 8, 32, [14], [], props.globals.getNode("fdm/jsbsim/fcs/s5trigger",1), 1, func{return 1;}, 1);
-s5l.typeShort = "S-5";
-s5l.brevity = "Rockets away";
-var s5r = stations.SubModelWeapon.new("UB-32", 8, 32, [15], [], props.globals.getNode("fdm/jsbsim/fcs/s5trigger",1), 1, func{return 1;}, 1);
-s5r.typeShort = "S-5";
-s5r.brevity = "Rockets away";
+var fuelTankLeft1200 = stations.FuelTank.new("Left 1200 L Tank", "TK1200", 6, 317, "jaguar/wingtankL1200");
+var fuelTankCenter1200 = stations.FuelTank.new("Center 1200 L Tank", "TK1200", 7, 317, "jaguar/ventraltank1200");
+var fuelTankRight1200 = stations.FuelTank.new("Right 1200 L Tank", "TK1200", 8, 317, "jaguar/wingtankR1200");
 
-var fuelTank1 = stations.FuelTank.new("Droptank", "droptank", 4, 200, "sim/model/MiG-23MLD/stores");
-var fuelTank2 = stations.FuelTank.new("Droptank", "droptank", 3, 200, "sim/model/MiG-23MLD/stores");
-var fuelTank3 = stations.FuelTank.new("Droptank", "droptank", 5, 200, "sim/model/MiG-23MLD/stores");
+fuelTankLeft1200.del();
+fuelTankCenter1200.del();
+fuelTankRight1200.del();
+
+# 
+# Matra R550 Majic: 14.5kg fuel, M2.5 above, 2 sec burn, 12kg warhead, 35G, rear aspect, 1.6 s arm, 500m minimum, 5km for non afterburner target, 25 sec selfd., 89kg mass, 164mm diam
+# Bl799:
+
+
 
 var pylonSets = {
-    empty: {name: "Empty", content: [], fireOrder: [], launcherDragArea: 0.0, launcherMass: 0, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 1},
+	empty: {name: "Empty", content: [], fireOrder: [], launcherDragArea: 0.0, launcherMass: 0, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 1},
+	mm20:  {name: "30mm Cannon", content: [cannon], fireOrder: [0], launcherDragArea: 0.0, launcherMass: 0, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
 
-    fueltank1: {name: "Droptank", content: [fuelTank1], fireOrder: [0], launcherDragArea: 0.35, launcherMass: 531, launcherJettisonable: 1, showLongTypeInsteadOfCount: 1, category: 2},
-    fueltank2: {name: "Droptank", content: [fuelTank2], fireOrder: [0], launcherDragArea: 0.35, launcherMass: 531, launcherJettisonable: 1, showLongTypeInsteadOfCount: 1, category: 2},
-    fueltank3: {name: "Droptank", content: [fuelTank3], fireOrder: [0], launcherDragArea: 0.35, launcherMass: 531, launcherJettisonable: 1, showLongTypeInsteadOfCount: 1, category: 2},
-    mm23:  {name: "23mm Cannon", content: [cannon], fireOrder: [0], launcherDragArea: 0.0, launcherMass: 0, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
-    upk23: {name: "UPK-23", content: [], fireOrder: [], launcherDragArea: 0.0, launcherMass: 480, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 1},
+    m83:  {name: "1 x MK-83", content: ["MK-83"], fireOrder: [0], launcherDragArea: 0.005, launcherMass: 300, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 2},
+    m83d:  {name: "2 x MK-83", content: ["MK-83","MK-83"], fireOrder: [0,1], launcherDragArea: 0.005, launcherMass: 300, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 2},
+    m83h:  {name: "1 x MK-83HD", content: ["MK-83HD"], fireOrder: [0], launcherDragArea: 0.005, launcherMass: 300, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 2},
+    m83hd:  {name: "2 x MK-83HD", content: ["MK-83HD","MK-83HD"], fireOrder: [0,1], launcherDragArea: 0.005, launcherMass: 300, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 2},
+    c87:  {name: "1 x CBU-87", content: ["CBU-87"], fireOrder: [0], launcherDragArea: 0.005, launcherMass: 300, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 2},
+    c87d:  {name: "2 x CBU-87", content: ["CBU-87","CBU-87"], fireOrder: [0,1], launcherDragArea: 0.005, launcherMass: 300, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 2},
+    bl:  {name: "1 x BL755", content: ["BL755"], fireOrder: [0], launcherDragArea: 0.005, launcherMass: 300, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 2},
+    bld:  {name: "2 x BL755", content: ["BL755","BL755"], fireOrder: [0,1], launcherDragArea: 0.005, launcherMass: 300, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 2},
+    
+    # 340 = outer pylon
+#	smokeWL: {name: "Smokewinder White", content: [smokewinderWhite1], fireOrder: [0], launcherDragArea: -0.05, launcherMass: 53+340, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
+#	smokeWR: {name: "Smokewinder White", content: [smokewinderWhite10], fireOrder: [0], launcherDragArea: -0.05, launcherMass: 53+340, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
 
-    # A/A weapons
-    R3S:    {name: "R-3S",      content: ["R-3S"], fireOrder: [0], launcherDragArea: -0.025, launcherMass: apu23, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1}, # FIXME: actual drag values
-    R13M:   {name: "R-13M",     content: ["R-13M"], fireOrder: [0], launcherDragArea: -0.025, launcherMass: apu23, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1}, # FIXME: actual drag values
-    R24R:   {name: "R-24R",     content: ["R-24R"], fireOrder: [0], launcherDragArea: -0.06, launcherMass: apu23, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1}, # FIXME: actual drag values
-    R24T:   {name: "R-24T",     content: ["R-24T"], fireOrder: [0], launcherDragArea: -0.06, launcherMass: apu23, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1}, # FIXME: actual drag values
-    R60M:   {name: "2 x R-60M", content: ["R-60M", "R-60M"], fireOrder: [0, 1], launcherDragArea: -0.05, launcherMass: apu60, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 1}, # FIXME: actual drag values
-    R73:    {name: "R-73",      content: ["R-73"], fireOrder: [0], launcherDragArea: -0.05, launcherMass: 0, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 1}, # FIXME: actual drag values
+# name must match content name as otherwise won't be able to use on dialog.
+	fuel12L: {name: fuelTankLeft1200.type, content: [fuelTankLeft1200], fireOrder: [0], launcherDragArea: 0.35, launcherMass: 531, launcherJettisonable: 1, showLongTypeInsteadOfCount: 1, category: 2},
+	fuel12R: {name: fuelTankRight1200.type, content: [fuelTankRight1200], fireOrder: [0], launcherDragArea: 0.35, launcherMass: 531, launcherJettisonable: 1, showLongTypeInsteadOfCount: 1, category: 2},
+    fuel12C: {name: fuelTankCenter1200.type, content: [fuelTankCenter1200], fireOrder: [0], launcherDragArea: 0.35, launcherMass: 531, launcherJettisonable: 1, showLongTypeInsteadOfCount: 1, category: 2},
 
-    # A/G weapons
-    ub32l: {name: "UB-32",   content: [s5l], fireOrder: [0], launcherDragArea: 0.007, launcherMass: 230, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 3},
-    ub32r: {name: "UB-32",   content: [s5r], fireOrder: [0], launcherDragArea: 0.007, launcherMass: 230, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 3},
-    s24:   {name: "S-24",    content: ["S-24"], fireOrder: [0], launcherDragArea: 0.007, launcherMass: apu23, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 3},
-    kh23:  {name: "Kh-23",   content: ["Kh-23"], fireOrder: [0], launcherDragArea: -0.06, launcherMass: apu23, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 3},
-    f500:  {name: "FAB-500", content: ["FAB-500"], fireOrder: [0], launcherDragArea: 0.005, launcherMass: apu23, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 3},
-    r500:  {name: "RBK-500", content: ["RBK-500"], fireOrder: [0], launcherDragArea: 0.005, launcherMass: apu23, launcherJettisonable: 0, showLongTypeInsteadOfCount: 0, category: 3},
+    # A/A weapons on non-wing pylons:
+	aim9:    {name: "AIM-9L",   content: ["AIM-9"], fireOrder: [0], launcherDragArea: -0.025, launcherMass: 53, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
+    majic:    {name: "Majic",   content: ["Majic"], fireOrder: [0], launcherDragArea: -0.025, launcherMass: 53, launcherJettisonable: 0, showLongTypeInsteadOfCount: 1, category: 1},
 };
 
-if(variant==1) {
-    var pylon1set = [pylonSets.empty];
-    var pylon2set = [pylonSets.empty, pylonSets.R13M, pylonSets.R24R, pylonSets.R24T, pylonSets.upk23, pylonSets.f500, pylonSets.r500, pylonSets.ub32l, pylonSets.s24, pylonSets.kh23];
-    var pylon3set = [pylonSets.empty, pylonSets.R3S, pylonSets.R13M, pylonSets.R60M, pylonSets.R73, pylonSets.f500, pylonSets.s24];
-    var pylon4set = [pylonSets.empty, pylonSets.fueltank1];
-    var pylon5set = [pylonSets.empty, pylonSets.R3S, pylonSets.R13M, pylonSets.R60M, pylonSets.R73, pylonSets.f500, pylonSets.s24];
-    var pylon6set = [pylonSets.empty, pylonSets.R13M, pylonSets.R24R, pylonSets.R24T, pylonSets.upk23, pylonSets.f500, pylonSets.r500, pylonSets.ub32r, pylonSets.s24, pylonSets.kh23];
-    var pylon7set = [pylonSets.empty];
+# sets. The first in the list is the default. Earlier in the list means higher up in dropdown menu.
+# These are not strictly needed in F-14 beside from the Empty, since it uses a custom payload dialog, but there for good measure.
+var pylon1set = [pylonSets.empty, pylonSets.majic, pylonSets.aim9];
+var pylon2set = [pylonSets.empty, pylonSets.majic, pylonSets.aim9, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl];
+var pylon3set = [pylonSets.empty, pylonSets.m83, pylonSets.m83h, pylonSets.m83d, pylonSets.m83hd, pylonSets.c87, pylonSets.c87d, pylonSets.bl, pylonSets.bld, pylonSets.fuel12L];
+var pylon4set = [pylonSets.empty, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl, pylonSets.fuel12C];
+var pylon5set = [pylonSets.empty, pylonSets.m83, pylonSets.m83h, pylonSets.m83d, pylonSets.m83hd, pylonSets.c87, pylonSets.c87d, pylonSets.bl, pylonSets.bld, pylonSets.fuel12R];
+var pylon6set = [pylonSets.empty, pylonSets.majic, pylonSets.aim9, pylonSets.m83, pylonSets.m83h, pylonSets.c87, pylonSets.bl];
+var pylon7set = [pylonSets.empty, pylonSets.majic, pylonSets.aim9];
+
+# pylons
+pylonI = stations.InternalStation.new("Internal gun mount", 7, [pylonSets.mm20], props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[7]",1));
+pylon1 = stations.Pylon.new("Left Over Wing",             0, [8.851, -2.080,  0.120], pylon1set,  0, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[0]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[0]",1),func{return 1});
+pylon2 = stations.Pylon.new("Left Outboard Wing",         1, [9.051, -2.980, -0.230], pylon2set,  1, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[1]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[1]",1),func{return 1});
+pylon3 = stations.Pylon.new("Left Inboard Wing",          2, [8.751, -2.080, -0.230], pylon3set,  2, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[2]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[2]",1),func{return 1});
+pylon4 = stations.Pylon.new("Fuselage Pylon",             3, [8.611,  0.000, -0.875], pylon4set,  3, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[3]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[3]",1),func{return 1});
+pylon5 = stations.Pylon.new("Right Inboard Wing",         4, [8.751,  2.080, -0.230], pylon5set,  4, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[4]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[4]",1),func{return 1});
+pylon6 = stations.Pylon.new("Right Outboard Wing",        5, [9.051,  2.980, -0.230], pylon6set,  5, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[5]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[4]",1),func{return 1});
+pylon7 = stations.Pylon.new("Right Over Wing",            6, [8.851,  2.080,  0.120], pylon7set,  6, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[6]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[4]",1),func{return 1});
+
+#pylon1.forceRail = 1;# set the missiles mounted on this pylon on a rail.
+#pylon9.forceRail = 1;
+
+var pylons = [pylon1,pylon2,pylon3,pylon4,pylon5,pylon6,pylon7,pylonI];
+
+# The order of first vector in this line is the default pylon order weapons is released in.
+# The order of second vector in this line is the order cycle key would cycle through the weapons (but since the f-14 dont have that the order is not important):
+fcs = fc.FireControl.new(pylons, [0,6,1,5,2,4,3,7], ["30mm Cannon", "Majic", "AIM-9", "MK-83", "MK-83HD", "CBU-87", "BL755"]);
+
+#print("** Pylon & fire control system started. **");
+var getDLZ = func {
+    if (fcs != nil and getprop("controls/armament/master-arm")) {
+        var w = fcs.getSelectedWeapon();
+        if (w!=nil and w.parents[0] == armament.AIM) {
+            var result = w.getDLZ(1);
+            if (result != nil and size(result) == 5 and result[4]<result[0]*1.5 and armament.contact != nil and armament.contact.get_display()) {
+                #target is within 150% of max weapon fire range.
+        	    return result;
+            }
+        }
+    }
+    return nil;
 }
-else {
-    var pylon1set = [pylonSets.empty];
-    var pylon2set = [pylonSets.empty, pylonSets.R13M, pylonSets.R24R, pylonSets.R24T, pylonSets.upk23, pylonSets.f500, pylonSets.r500, pylonSets.ub32l, pylonSets.s24, pylonSets.kh23];
-    var pylon3set = [pylonSets.empty, pylonSets.R3S, pylonSets.R13M, pylonSets.R60M, pylonSets.s24];
-    var pylon4set = [pylonSets.empty, pylonSets.fueltank1];
-    var pylon5set = [pylonSets.empty, pylonSets.R3S, pylonSets.R13M, pylonSets.R60M, pylonSets.s24];
-    var pylon6set = [pylonSets.empty, pylonSets.R13M, pylonSets.R24R, pylonSets.R24T, pylonSets.upk23, pylonSets.f500, pylonSets.r500, pylonSets.ub32r, pylonSets.s24, pylonSets.kh23];
-    var pylon7set = [pylonSets.empty];
+
+var reloadCannon = func {
+    #setprop("ai/submodels/submodel[4]/count", 100);
+    #setprop("ai/submodels/submodel[5]/count", 100);#flares
+    cannon.reloadAmmo();
 }
 
-setprop("payload/armament/fire-control/serviceable", 1);
-pylon1 = stations.Pylon.new("Left wing outboard pylon",  0, [4.510, -4.511, -0.100], pylon1set,  0, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[0]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[0]",1),func{return getprop("payload/armament/fire-control/serviceable") and 1;},func{return 1;});
-pylon2 = stations.Pylon.new("Left wing inboard pylon (#1)",   1, [4.510, -4.511, -0.100], pylon2set,  1, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[1]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[1]",1),func{return getprop("payload/armament/fire-control/serviceable") and 1;},func{return 1;});
-pylon3 = stations.Pylon.new("Left Fuselage (#3)",             2, [3.575, -3.309,  0.025], pylon3set,  2, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[2]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[2]",1),func{return getprop("payload/armament/fire-control/serviceable") and 1;},func{return 1;});
-pylon4 = stations.Pylon.new("Center Station",            3, [2.800,  0.000, -0.700], pylon4set,  3, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[3]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[3]",1),func{return getprop("payload/armament/fire-control/serviceable") and 1;},func{return 1;});
-pylon5 = stations.Pylon.new("Right Fuselage (#4)",            4, [3.575,  3.309,  0.025], pylon5set,  4, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[4]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[4]",1),func{return getprop("payload/armament/fire-control/serviceable") and 1;},func{return 1;});
-pylon6 = stations.Pylon.new("Right wing inboard pylon (#2)",  5, [4.510,  4.511, -0.100], pylon6set,  5, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[5]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[5]",1),func{return getprop("payload/armament/fire-control/serviceable") and 1;},func{return 1;});
-pylon7 = stations.Pylon.new("Right wing outboard pylon", 6, [4.510,  4.511, -0.100], pylon7set,  6, props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[6]",1),props.globals.getNode("fdm/jsbsim/inertia/pointmass-dragarea-sqft[6]",1),func{return getprop("payload/armament/fire-control/serviceable") and 1;},func{return 1;});
-pylonI = stations.InternalStation.new("Internal gun mount",   7, [pylonSets.mm23], props.globals.getNode("fdm/jsbsim/inertia/pointmass-weight-lbs[10]", 1));
+# reload cannon only
+var cannon_load = func {
+    if (fcs != nil and (!getprop("payload/armament/msg") or getprop("fdm/jsbsim/gear/unit[0]/WOW"))) {
+        reloadCannon();
+        return 1;
+    } else {
+      screen.log.write(msgB);
+      return 0;
+    }
+}
 
-pylons = [pylon1, pylon2, pylon3, pylon4, pylon5, pylon6, pylon7, pylonI];
-fcs = fc.FireControl.new(pylons, [7, 1, 5, 2, 4], ["23mm Cannon", "R-3S", "R-13M", "R-24R", "R-24T", "R-60M", "R-73", "UB-32", "FAB-500", "RBK-500", "S-24", "Kh-23"]);
 
-var selectedWeapon = {};
 var bore_loop = func {
     #enables firing of aim9 without radar. The aim-9 seeker will be fixed 3.5 degs below bore and any aircraft the gets near that will result in lock.
+    bore = 0;
     if (fcs != nil) {
-        selectedWeapon = fcs.getSelectedWeapon();
-        if (selectedWeapon != nil and (selectedWeapon.type == "R-3S" or selectedWeapon.type == "R-13M" or selectedWeapon.type == "R-60M" or selectedWeapon.type == "R-73")) {
-            selectedWeapon.setContacts(radar_system.getCompleteList());
-            selectedWeapon.commandDir(0,-3.5);# the real is bored to -6 deg below real bore
+        var standby = 1;#getprop("sim/multiplay/generic/int[2]");
+        var aim = fcs.getSelectedWeapon();
+        if (aim != nil and (aim.type == "AIM-9" or aim.type == "MAGIC-2" or aim.type == "Majic")) {
+            if (standby == 1) {
+                #aim.setBore(1);
+                aim.setContacts(radar_system.getCompleteList());
+                aim.commandDir(0,-3.5);# the real is bored to -6 deg below real bore
+                bore = 1;
+            } else {
+                aim.commandRadar();
+                aim.setContacts([]);
+            }
         }
     }
     settimer(bore_loop, 0.5);
 };
+var bore = 0;
 if (fcs!=nil) {
     bore_loop();
 }
 
-var refill_cannons = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        # cannons
-        setprop("ai/submodels/submodel[8]/count", 260);
-        setprop("ai/submodels/submodel[9]/count", 260);
-        setprop("ai/submodels/submodel[10]/count", 260);
-        setprop("ai/submodels/submodel[11]/count", 260);
-        setprop("ai/submodels/submodel[12]/count", 260);
-        setprop("ai/submodels/submodel[13]/count", 260);
-        screen.log.write(msgB, 0.5, 0.5, 1);
-    }
-    else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
 
-var refill_cf = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        # chaffs/flares
-        setprop("ai/submodels/submodel[0]/count", 40);
-        setprop("ai/submodels/submodel[1]/count", 40);
-        setprop("ai/submodels/submodel[2]/count", 40);
-        setprop("ai/submodels/submodel[3]/count", 40);
-        setprop("ai/submodels/submodel[4]/count", 40);
-        setprop("ai/submodels/submodel[5]/count", 40);
-        setprop("ai/submodels/submodel[6]/count", 40);
-        setprop("ai/submodels/submodel[7]/count", 40);
-        screen.log.write(msgB, 0.5, 0.5, 1);
-    }
-    else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
+var ripple = func {
+    fcs.setRippleDist(getprop("controls/armament/ripple-dist"));
+    fcs.setRippleMode(getprop("controls/armament/ripple"));
+};
 
-var refill_chute = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        # drag chute
-        setprop("fdm/jsbsim/systems/chute/deploy-rqst", 0);
-        setprop("controls/flight/chute_jettisoned", 0);
-        screen.log.write(msgB, 0.5, 0.5, 1);
-    }
-    else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
+setlistener("controls/armament/ripple-dist", ripple);
+setlistener("controls/armament/ripple", ripple);
 
-var empty = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        pylon2.loadSet(pylonSets.empty);
-        pylon3.loadSet(pylonSets.empty);
-        pylon5.loadSet(pylonSets.empty);
-        pylon6.loadSet(pylonSets.empty);
-    } else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
-
-var aa_default = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        pylon2.loadSet(pylonSets.R24R);
-        pylon3.loadSet(pylonSets.R60M);
-        pylon5.loadSet(pylonSets.R60M);
-        pylon6.loadSet(pylonSets.R24T);
-    } else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
-
-var aa_r3 = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        pylon2.loadSet(pylonSets.R13M);
-        pylon3.loadSet(pylonSets.R3S);
-        pylon5.loadSet(pylonSets.R3S);
-        pylon6.loadSet(pylonSets.R13M);
-    } else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
-
-var ag_s5 = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        pylon2.loadSet(pylonSets.ub32l);
-        pylon3.loadSet(pylonSets.empty);
-        pylon5.loadSet(pylonSets.empty);
-        pylon6.loadSet(pylonSets.ub32r);
-    } else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
-
-var ag_s24 = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        pylon2.loadSet(pylonSets.s24);
-        pylon3.loadSet(pylonSets.s24);
-        pylon5.loadSet(pylonSets.s24);
-        pylon6.loadSet(pylonSets.s24);
-    } else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
-
-var ag_kh23 = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        pylon2.loadSet(pylonSets.kh23);
-        pylon3.loadSet(pylonSets.empty);
-        pylon5.loadSet(pylonSets.empty);
-        pylon6.loadSet(pylonSets.kh23);
-    } else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
-
-var ag_f500 = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        pylon2.loadSet(pylonSets.f500);
-        pylon3.loadSet(pylonSets.f500);
-        pylon5.loadSet(pylonSets.f500);
-        pylon6.loadSet(pylonSets.f500);
-    } else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
-
-var ag_r500 = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        pylon2.loadSet(pylonSets.r500);
-        pylon3.loadSet(pylonSets.empty);
-        pylon5.loadSet(pylonSets.empty);
-        pylon6.loadSet(pylonSets.r500);
-    } else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
-
-var ag_upk23 = func {
-    if(!getprop("payload/armament/msg") or getprop("gear/gear[0]/wow")) {
-        pylon2.loadSet(pylonSets.upk23);
-        pylon3.loadSet(pylonSets.empty);
-        pylon5.loadSet(pylonSets.empty);
-        pylon6.loadSet(pylonSets.upk23);
-    } else {
-        screen.log.write(msgA, 0.5, 0.5, 1);
-    }
-}
+# swamp TODO list:
+#
+# add JSB pointmasses for those coords
+# add more weapons and smokewinders. Plus get correct loadout options for each pylon
+# 

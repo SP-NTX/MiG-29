@@ -1,6 +1,7 @@
 # init.nas
 
 var init_systems = func{
+ hack.init();
  print ("Start");
  system.preins();
  system.IG2Hz5();
