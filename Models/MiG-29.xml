@@ -15,6 +15,10 @@
   <name>Cockpit</name>
   <path>Aircraft/MiG-29/Models/Cockpit/Cockpit.xml</path>
  </model>
+     <model>
+        <name>Stores</name>
+        <path>Aircraft/MiG-29/Models/Stores.xml</path>
+    </model>
  <model>
   <name>JetFlame</name>
   <path>Aircraft/MiG-29/Models/JetFlame.xml</path>
