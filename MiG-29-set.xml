@@ -35,10 +35,10 @@
     </author>
   </authors>  
   <urls>
-    <home-page>https://github.com/ShFsn/MiG-29_9-12</home-page>
-    <support>https://github.com/ShFsn/MiG-29_9-12/issues</support>
+    <home-page>https://github.com/ShFsn/MiG-29</home-page>
+    <support>https://github.com/ShFsn/MiG-29/issues</support>
     <wikipedia>https://en.wikipedia.org/wiki/Mikoyan_MiG-29</wikipedia>
-    <code-repository>https://github.com/ShFsn/MiG-29_9-12</code-repository>
+    <code-repository>https://github.com/ShFsn/MiG-29</code-repository>
   </urls>
 
   <localized>
@@ -69,10 +69,10 @@
         </author>
       </authors>  
       <urls>
-        <home-page>https://github.com/ShFsn/MiG-29_9-12</home-page>
-        <support>https://github.com/ShFsn/MiG-29_9-12/issues</support>
+        <home-page>https://github.com/ShFsn/MiG-29</home-page>
+        <support>https://github.com/ShFsn/MiG-29/issues</support>
         <wikipedia>https://ru.wikipedia.org/wiki/МиГ-29</wikipedia>
-        <code-repository>https://github.com/ShFsn/MiG-29_9-12</code-repository>
+        <code-repository>https://github.com/ShFsn/MiG-29</code-repository>
       </urls>
     </ru>
   </localized>
@@ -124,11 +124,11 @@
     </previews>
 
   <sound>
-   <path>Aircraft/MiG-29_9-12/Sounds/sound.xml</path>
+   <path>Aircraft/MiG-29/Sounds/sound.xml</path>
   </sound>
 
   <model>
-   <path>Aircraft/MiG-29_9-12/Models/MiG-29.xml</path>
+   <path>Aircraft/MiG-29/Models/MiG-29.xml</path>
    <livery>
     <file type="string">RuAF_1</file>
    </livery>
@@ -136,7 +136,7 @@
 
   <submodels>
    <serviceable type="bool">true</serviceable>
-   <path>Aircraft/MiG-29_9-12/MiG-29-submodels.xml</path>
+   <path>Aircraft/MiG-29/MiG-29-submodels.xml</path>
   </submodels>
 
   <virtual-cockpit archive="y">true</virtual-cockpit>
@@ -631,76 +631,76 @@
 
   <nasal>
    <system>
-    <file>Aircraft/MiG-29_9-12/Nasal/init_systems.nas</file>
-    <file>Aircraft/MiG-29_9-12/Nasal/main.nas</file>
-    <file>Aircraft/MiG-29_9-12/Nasal/PS.nas</file>
-    <file>Aircraft/MiG-29_9-12/Nasal/ARV-29.nas</file>
-    <file>Aircraft/MiG-29_9-12/Nasal/hydrosystems.nas</file>
-    <file>Aircraft/MiG-29_9-12/Nasal/BUANO.nas</file>
-    <file>Aircraft/MiG-29_9-12/Nasal/Ekran.nas</file>
-    <file>Aircraft/MiG-29_9-12/Nasal/IK-VK.nas</file>
-    <file>Aircraft/MiG-29_9-12/Nasal/ARU-29-2.nas</file>
+    <file>Aircraft/MiG-29/Nasal/init_systems.nas</file>
+    <file>Aircraft/MiG-29/Nasal/main.nas</file>
+    <file>Aircraft/MiG-29/Nasal/PS.nas</file>
+    <file>Aircraft/MiG-29/Nasal/ARV-29.nas</file>
+    <file>Aircraft/MiG-29/Nasal/hydrosystems.nas</file>
+    <file>Aircraft/MiG-29/Nasal/BUANO.nas</file>
+    <file>Aircraft/MiG-29/Nasal/Ekran.nas</file>
+    <file>Aircraft/MiG-29/Nasal/IK-VK.nas</file>
+    <file>Aircraft/MiG-29/Nasal/ARU-29-2.nas</file>
    </system>
    <SAU>
-    <file>Aircraft/MiG-29_9-12/Nasal/SAU-451.nas</file>
+    <file>Aircraft/MiG-29/Nasal/SAU-451.nas</file>
    </SAU>
    <control>
-    <file>Aircraft/MiG-29_9-12/Nasal/controls.nas</file>
+    <file>Aircraft/MiG-29/Nasal/controls.nas</file>
    </control>
    <electrical>
-    <file>Aircraft/MiG-29_9-12/Nasal/electrical.nas</file>
+    <file>Aircraft/MiG-29/Nasal/electrical.nas</file>
    </electrical>
    <engines>
-    <file>Aircraft/MiG-29_9-12/Nasal/engines.nas</file>
+    <file>Aircraft/MiG-29/Nasal/engines.nas</file>
    </engines>
    <instrumentation>
-    <file>Aircraft/MiG-29_9-12/Nasal/instrumentation.nas</file>
-    <file>Aircraft/MiG-29_9-12/Nasal/SEI-31.nas</file>
-<!--    <file>Aircraft/MiG-29_9-12/Nasal/ILS-31i.nas</file> -->
-    <file>Aircraft/MiG-29_9-12/Nasal/Tablo.nas</file>
+    <file>Aircraft/MiG-29/Nasal/instrumentation.nas</file>
+    <file>Aircraft/MiG-29/Nasal/SEI-31.nas</file>
+<!--    <file>Aircraft/MiG-29/Nasal/ILS-31i.nas</file> -->
+    <file>Aircraft/MiG-29/Nasal/Tablo.nas</file>
    </instrumentation>
    <navigation>
-    <file>Aircraft/MiG-29_9-12/Nasal/TsVU-M.nas</file>
+    <file>Aircraft/MiG-29/Nasal/TsVU-M.nas</file>
    </navigation>
    <oxygensystem>
-    <file>Aircraft/MiG-29_9-12/Nasal/oxygensystem.nas</file>
+    <file>Aircraft/MiG-29/Nasal/oxygensystem.nas</file>
    </oxygensystem>
    <tyresmoke>
-    <file>Aircraft/MiG-29_9-12/Nasal/tyresmoke.nas</file>
+    <file>Aircraft/MiG-29/Nasal/tyresmoke.nas</file>
    </tyresmoke>
    <weapon>
-    <file>Aircraft/MiG-29_9-12/Nasal/weapons.nas</file>
+    <file>Aircraft/MiG-29/Nasal/weapons.nas</file>
    </weapon>
    <damage>
-    <file>Aircraft/Mig-29_9-12/Nasal/damage.nas</file>
+    <file>Aircraft/MiG-29/Nasal/damage.nas</file>
    </damage>
  
    <hud>
-    <file>Aircraft/MiG-29_9-12/Nasal/hud.nas</file>
+    <file>Aircraft/MiG-29/Nasal/hud.nas</file>
    </hud>
    <mpdb>
-    <file>Aircraft/MiG-29_9-12/Nasal/mp_db.nas</file>
+    <file>Aircraft/MiG-29/Nasal/mp_db.nas</file>
    </mpdb>
    <tacview>
-    <file>Aircraft/MIG-29_9-12/Nasal/tacview.nas</file>
+    <file>Aircraft/MiG-29/Nasal/tacview.nas</file>
    </tacview>
    <mig28>
-    <file>Aircraft/MiG-29_9-12/Nasal/mig28.nas</file>
+    <file>Aircraft/MiG-29/Nasal/mig28.nas</file>
    </mig28>
    <vector>
-    <file>Aircraft/MiG-29_9-12/Nasal/vector.nas</file>
+    <file>Aircraft/MiG-29/Nasal/vector.nas</file>
    </vector>
    <radardist>
     <file>Aircraft/Instruments-3d/radardist/radardist.nas</file>
    </radardist>
    <radar>
-    <file>Aircraft/MiG-29_9-12/Nasal/radar2.nas</file>
+    <file>Aircraft/MiG-29/Nasal/radar2.nas</file>
    </radar>
    <misc>
     <file>Aircraft/Generic/limits.nas</file>
    </misc>
    <mig29-scripts>
-     <file>Aircraft/MiG-29_9-12/Nasal/mig29-scripts.nas</file>
+     <file>Aircraft/MiG-29/Nasal/mig29-scripts.nas</file>
    </mig29-scripts>
   </nasal>
 

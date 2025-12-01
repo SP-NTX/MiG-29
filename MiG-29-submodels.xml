@@ -4,7 +4,7 @@
 
   <submodel>
    <name>gun-bullet</name>
-   <model>Aircraft/MiG-29_9-12/Models/Submodels/GSh-301/tracer.xml</model>
+   <model>Aircraft/MiG-29/Models/Submodels/GSh-301/tracer.xml</model>
    <trigger>controls/armament/trigger</trigger>
    <speed>2952</speed>
    <repeat>true</repeat>
@@ -23,12 +23,12 @@
    <collision-report>sim/ai/aircraft/collision/bullet</collision-report>
    <impact>true</impact>
    <impact-reports>ai/models/model-impact</impact-reports>
-   <submodel-path>Aircraft/MiG-29_9-12/Models/Submodels/GSh-301/bullet-submodel.xml</submodel-path>
+   <submodel-path>Aircraft/MiG-29/Models/Submodels/GSh-301/bullet-submodel.xml</submodel-path>
   </submodel>
 
   <submodel>
    <name>droptank</name>
-   <model>Aircraft/MiG-29_9-12/Models/Submodels/PTB-1500/PTB-1500.ac</model>
+   <model>Aircraft/MiG-29/Models/Submodels/PTB-1500/PTB-1500.ac</model>
    <trigger>controls/armament/station[0]/jettison-all</trigger>
    <speed>0</speed>
    <repeat>false</repeat>
@@ -47,7 +47,7 @@
 
   <submodel>
    <name>LTC_Left</name>
-   <model>Aircraft/MiG-29_9-12/Models/Submodels/LTTs/LTTs.xml</model>
+   <model>Aircraft/MiG-29/Models/Submodels/LTTs/LTTs.xml</model>
    <trigger>mig29/systems/BVP/release</trigger>
    <speed>20.0</speed>
    <repeat>true</repeat>
@@ -63,12 +63,12 @@
    <weight>0.2</weight>
    <cd>0.02</cd>
    <eda>0.007</eda>
-   <submodel-path>Aircraft/MiG-29_9-12/Models/Submodels/LTTs/LTTs.xml</submodel-path>
+   <submodel-path>Aircraft/MiG-29/Models/Submodels/LTTs/LTTs.xml</submodel-path>
   </submodel>
 
   <submodel>
    <name>LTC_Right</name>
-   <model>Aircraft/MiG-29_9-12/Models/Submodels/LTTs/LTTs.xml</model>
+   <model>Aircraft/MiG-29/Models/Submodels/LTTs/LTTs.xml</model>
    <trigger>mig29/systems/BVP/release</trigger>
    <speed>20.0</speed>
    <repeat>true</repeat>
@@ -84,7 +84,7 @@
    <weight>0.2</weight>
    <cd>0.02</cd>
    <eda>0.007</eda>
-   <submodel-path>Aircraft/MiG-29_9-12/Models/Submodels/LTTs/LTTs.xml</submodel-path>
+   <submodel-path>Aircraft/MiG-29/Models/Submodels/LTTs/LTTs.xml</submodel-path>
   </submodel>
 
 <!-- Weapon -->
@@ -93,7 +93,7 @@
 <!-- R-27R -->
 <!--  <submodel>
    <name>missile_R-27R_1</name>
-   <model>Aircraft/MiG-29_9-12/Models/Submodels/R-27R/R-27R.ac</model>
+   <model>Aircraft/MiG-29/Models/Submodels/R-27R/R-27R.ac</model>
    <trigger>/controls/armament/station[3]/release-all</trigger>
    <speed>0</speed>
    <repeat>false</repeat>
@@ -114,12 +114,12 @@
    <impact-reports>sim/ai/aircraft/impact/bomb</impact-reports>
    <collision>true</collision>
    <collision-report>sim/ai/aircraft/collision/bomb</collision-report>
-   <submodel-path>Aircraft/MiG-29_9-12/Models/Submodels/R-27R/R-27R_L.xml</submodel-path>
+   <submodel-path>Aircraft/MiG-29/Models/Submodels/R-27R/R-27R_L.xml</submodel-path>
   </submodel>-->
 
   <submodel>
    <name>bomb FAB-500 M-62</name>
-   <model>Aircraft/MiG-29_9-12/Models/Submodels/AB-500/FAB-500_M-62.ac</model>
+   <model>Aircraft/MiG-29/Models/Submodels/AB-500/FAB-500_M-62.ac</model>
    <trigger>/controls/armament/station[3]/release-all</trigger>
    <speed>0</speed>
    <repeat>false</repeat>

@@ -16,7 +16,7 @@
 
  <model>
   <name>K-36DM</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/K-36DM/K-36DM.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/K-36DM/K-36DM.xml</path>
   <offsets>
    <x-m>-3.210</x-m>
    <y-m> 0.000</y-m>
@@ -26,7 +26,7 @@
 
  <model>
   <name>Pilot</name>
-  <path>Aircraft/MiG-29_9-12/Models/Submodels/Pilot/Pilot.xml</path>
+  <path>Aircraft/MiG-29/Models/Submodels/Pilot/Pilot.xml</path>
   <offsets>
    <x-m>-3.300</x-m>
    <y-m> 0.000</y-m>
@@ -36,27 +36,27 @@
 
  <model>
   <name>Instruments</name>
-  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Instruments.xml</path>
+  <path>Aircraft/MiG-29/Models/Cockpit/Instruments.xml</path>
  </model>
 
  <model>
   <name>Panels</name>
-  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Panels.xml</path>
+  <path>Aircraft/MiG-29/Models/Cockpit/Panels.xml</path>
  </model>
 
  <model>
   <name>Tablo</name>
-  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Tablo/Tablo.xml</path>
+  <path>Aircraft/MiG-29/Models/Cockpit/Tablo/Tablo.xml</path>
  </model>
 
  <model>
   <name>InternalLighting</name>
-  <path>Aircraft/MiG-29_9-12/Models/Cockpit/Lighting/InternalLighting.xml</path>
+  <path>Aircraft/MiG-29/Models/Cockpit/Lighting/InternalLighting.xml</path>
  </model>
 
  <model>
   <name>LabelText</name>
-  <path>Aircraft/MiG-29_9-12/Models/Cockpit/LabelText.xml</path>
+  <path>Aircraft/MiG-29/Models/Cockpit/LabelText.xml</path>
  </model>
 
  <animation>
@@ -282,7 +282,7 @@
  </animation>
 
  <effect>
-  <inherits-from>Aircraft/MiG-29_9-12/Models/Effects/model-transparent</inherits-from>
+  <inherits-from>Aircraft/MiG-29/Models/Effects/model-transparent</inherits-from>
   <object-name>ILSGlass</object-name>
   <object-name>ILS31Len</object-name>
   <object-name>ILS-Screen</object-name>

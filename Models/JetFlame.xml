@@ -10,7 +10,7 @@
 <path>JetFlame.ac</path>
 
  <effect>
-  <inherits-from>Aircraft/MiG-29_9-12/Models/Effects/model-transparent</inherits-from>
+  <inherits-from>Aircraft/MiG-29/Models/Effects/model-transparent</inherits-from>
   <object-name>JetFlameCL</object-name>
   <object-name>JetFlameL01</object-name>
   <object-name>JetFlameL02</object-name>
